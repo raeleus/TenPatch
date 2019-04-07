@@ -38,9 +38,31 @@ allprojects {
     }
 }
 
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    
+    sourceCompatibility = 1.8 // java 8
+    targetCompatibility = 1.8
+    
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+    
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+    
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+}
+
 project(":demo") {
     apply plugin: "java"
-    apply plugin: 'maven'
 
 
     dependencies {
@@ -53,7 +75,7 @@ project(":demo") {
 
 project(":tenpatch") {
     apply plugin: "java"
-    apply plugin: 'maven'
+
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
