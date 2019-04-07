@@ -63,8 +63,3 @@ project(":tenpatch") {
 tasks.eclipse.doLast {
     delete ".project"
 }
-
-wrapper {
-    gradleVersion = "4.6"
-    distributionType = Wrapper.DistributionType.ALL
-}
