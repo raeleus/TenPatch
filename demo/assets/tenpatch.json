@@ -1,0 +1,237 @@
+{
+"com.badlogic.gdx.graphics.g2d.BitmapFont": {
+	"font": {
+		"file": "Bitter-Bold.fnt"
+	}
+},
+"com.badlogic.gdx.graphics.Color": {
+	"black": {
+		"r": 0,
+		"g": 0,
+		"b": 0,
+		"a": 1
+	},
+	"gray": {
+		"r": 0.81666654,
+		"g": 0.81666654,
+		"b": 0.81666654,
+		"a": 1
+	},
+	"red": {
+		"r": 1,
+		"g": 0,
+		"b": 0,
+		"a": 1
+	},
+	"white": {
+		"r": 1,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable": {
+	"gray": {
+		"name": "white",
+		"color": "gray"
+	},
+	"black": {
+		"name": "white",
+		"color": "black"
+	}
+},
+"com.ray3k.tenpatch.TenPatchDrawable": {
+	"default": {
+		"tiling": false,
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 0,
+		"minHeight": 0
+	},
+	"brick-wall": {
+		"horizontalStretchAreas": [ 28, 95 ],
+		"verticalStretchAreas": [ 28, 112 ],
+		"tiling": true,
+		"region": "brick-wall",
+		"leftWidth": 28,
+		"rightWidth": 28,
+		"topHeight": 28,
+		"bottomHeight": 28,
+		"minWidth": 0,
+		"minHeight": 0,
+		"name": "brick-wall"
+	},
+	"button-down": {
+		"horizontalStretchAreas": [ 17, 79 ],
+		"verticalStretchAreas": [ 0, 33 ],
+		"tiling": false,
+		"region": "button-down",
+		"leftWidth": 17,
+		"rightWidth": 15,
+		"topHeight": 3,
+		"bottomHeight": 3,
+		"minWidth": 95,
+		"minHeight": 33,
+		"name": "button-down"
+	},
+	"button-up": {
+		"horizontalStretchAreas": [ 17, 79 ],
+		"verticalStretchAreas": [ 0, 33 ],
+		"tiling": false,
+		"region": "button-up",
+		"leftWidth": 17,
+		"rightWidth": 15,
+		"topHeight": 2,
+		"bottomHeight": 4,
+		"minWidth": 95,
+		"minHeight": 33,
+		"name": "button-up"
+	},
+	"music": {
+		"horizontalStretchAreas": [ 27, 35, 54, 62 ],
+		"verticalStretchAreas": [ 0, 74 ],
+		"tiling": false,
+		"region": "music",
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 90,
+		"minHeight": 75,
+		"name": "music"
+	},
+	"progress-bar-bg": {
+		"horizontalStretchAreas": [ 6, 30 ],
+		"verticalStretchAreas": [ 0, 9 ],
+		"tiling": false,
+		"region": "progress-bar-bg",
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 35,
+		"minHeight": 10,
+		"name": "progress-bar-bg"
+	},
+	"progress-bar-knob": {
+		"horizontalStretchAreas": [ 6, 28 ],
+		"verticalStretchAreas": [ 0, 9 ],
+		"tiling": true,
+		"region": "progress-bar-knob",
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 0,
+		"minHeight": 10,
+		"name": "progress-bar-knob"
+	},
+	"split-pane": {
+		"horizontalStretchAreas": [ 0, 7 ],
+		"verticalStretchAreas": [ 0, 10, 26, 35 ],
+		"tiling": false,
+		"region": "split-pane",
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 8,
+		"minHeight": 0,
+		"name": "split-pane"
+	},
+	"skull": {
+		"horizontalStretchAreas": [ 39, 54, 127, 142 ],
+		"verticalStretchAreas": [ 0, 73 ],
+		"tiling": false,
+		"region": "skull",
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 182,
+		"minHeight": 74,
+		"name": "skull"
+	},
+	"brick-wall-tinted": {
+		"color": "red",
+		"horizontalStretchAreas": [ 28, 95 ],
+		"verticalStretchAreas": [ 28, 112 ],
+		"tiling": true,
+		"region": "brick-wall",
+		"leftWidth": 28,
+		"rightWidth": 28,
+		"topHeight": 28,
+		"bottomHeight": 28,
+		"minWidth": 0,
+		"minHeight": 0,
+		"name": "brick-wall"
+	},
+	"window": {
+		"horizontalStretchAreas": [ 10, 120 ],
+		"verticalStretchAreas": [ 8, 109 ],
+		"tiling": true,
+		"region": "window",
+		"leftWidth": 5,
+		"rightWidth": 5,
+		"topHeight": 17,
+		"bottomHeight": 3,
+		"minWidth": 20,
+		"minHeight": 25,
+		"name": "window"
+	}
+},
+"com.ray3k.tenpatch.AnimatedTenPatchDrawable": {
+	"default": {
+		"tiling": false,
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 0,
+		"minHeight": 0,
+		"name": "eye-animation"
+	},
+	"eye-animation": {
+		"horizontalStretchAreas": [ 26, 39, 144, 157 ],
+		"verticalStretchAreas": [ 24, 27, 109, 111 ],
+		"tiling": false,
+		"leftWidth": 0,
+		"rightWidth": 0,
+		"topHeight": 0,
+		"bottomHeight": 0,
+		"minWidth": 0,
+		"minHeight": 0,
+		"name": "eye-animation",
+		"regions": ["eye-animation_0", "eye-animation_1", "eye-animation_2", "eye-animation_3", "eye-animation_4", "eye-animation_5", "eye-animation_6", "eye-animation_7", "eye-animation_8", "eye-animation_9", "eye-animation_10", "eye-animation_11", "eye-animation_12", "eye-animation_13", "eye-animation_14", "eye-animation_15", "eye-animation_16", "eye-animation_17", "eye-animation_18", "eye-animation_19", "eye-animation_20", "eye-animation_21", "eye-animation_22", "eye-animation_23", "eye-animation_24"],
+		"frameDuration": 0.066666667
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
+	"default-horizontal": {
+		"background": "progress-bar-bg",
+		"knobBefore": "progress-bar-knob"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
+	"default": {
+		"vScrollKnob": "scroll-knob"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle": {
+	"default-horizontal": {
+		"handle": "split-pane"
+	},
+	"default-vertical": {
+		"handle": "split-pane"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+	"default": {
+		"font": "font",
+		"up": "button-up",
+		"down": "button-down"
+	}
+}
+}
