@@ -34,11 +34,6 @@ task dist(type: Jar) {
     }
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
 dist.dependsOn classes
 
 eclipse {
