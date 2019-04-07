@@ -52,11 +52,6 @@ artifacts {
     archives javadocJar
 }
 
-wrapper {
-    gradleVersion = "4.6"
-    distributionType = Wrapper.DistributionType.ALL
-}
-
 eclipse {
     project {
         name = appName + "-demo"
