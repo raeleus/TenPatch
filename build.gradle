@@ -81,3 +81,7 @@ artifacts {
 tasks.eclipse.doLast {
     delete ".project"
 }
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+}
