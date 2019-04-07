@@ -95,6 +95,10 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         setRegion(region);
     }
 
+    public static class InvalidPatchException extends RuntimeException {
+        
+    }
+    
     /**
      * Draws the TenPatch to the specified batch. The defined stretch areas
      * will adapt to the width and height by either tiling or stretching/shrinking.
@@ -109,6 +113,13 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      */
     @Override
     public void draw(Batch batch, float x, float y, float width, float height) {
+        float previousValue = 0;
+        for (float value : horizontalStretchAreas) {
+            if (value < previousValue || value >= getRegion().getRegionWidth()) {
+                throw new InvalidPatchException();
+            }
+        }
+        
         Color batchColor = batch.getColor();
         temp.set(batchColor);
         batch.setColor(batchColor.mul(color));
