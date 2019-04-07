@@ -2,6 +2,8 @@
 
 ### TenPatch ###
 
+Version 1
+
 This project is an alternative to libGDX's 9patch implementation. It aims to have the following features:
 
 * Multiple stretch regions as seen with Android's implementation.
@@ -11,7 +13,7 @@ This project is an alternative to libGDX's 9patch implementation. It aims to hav
 
 ### How to Use ###
 
-Add the following to your root build.gradle.
+Add the following to your root build.gradle:
 
 ```
 allprojects {
@@ -23,7 +25,7 @@ allprojects {
 }
 ```
 
-Add the dependency to the core project.
+Add the dependency to the core project:
 
 ```
 project(":core") {
@@ -32,7 +34,7 @@ project(":core") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus:TenPatch:master-SNAPSHOT'
+        compile 'com.github.raeleus.TenPatch:demo:1'
     }
 }
 ```
