@@ -32,7 +32,7 @@ project(":core") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus:TenPatch:dev-SNAPSHOT'
+        compile 'com.github.raeleus:TenPatch:master-SNAPSHOT'
     }
 }
 ```
