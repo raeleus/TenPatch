@@ -34,7 +34,7 @@ project(":core") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus.TenPatch:demo:1'
+        compile 'com.github.raeleus:TenPatch:v1.0'
     }
 }
 ```
