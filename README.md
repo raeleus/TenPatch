@@ -9,6 +9,36 @@ This project is an alternative to libGDX's 9patch implementation. It aims to hav
 * Loading via skin JSON.
 * An editor via Skin Composer
 
+### How to Use ###
+
+Add the following to your root build.gradle.
+
+```
+allprojects {
+    ...
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Add the dependency to the core project.
+
+```
+project(":core") {
+    apply plugin: "java"
+
+
+    dependencies {
+        ...
+        compile 'com.github.raeleus:TenPatch:dev-SNAPSHOT'
+    }
+}
+```
+
+Please see the examples in the [demo project](https://github.com/raeleus/TenPatch/tree/master/demo/src/com/ray3k/tenpatch/demo/desktop).
+
 ### Contact ###
 
 * This project is maintained by Raymond "Raeleus" Buckley
