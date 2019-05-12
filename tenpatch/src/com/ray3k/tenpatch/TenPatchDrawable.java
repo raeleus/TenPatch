@@ -325,6 +325,24 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         throw new UnsupportedOperationException();
     }
     
+    /**
+     * Returns the Color instance for this drawable. Modify this Color to affect the appearance of the drawable.
+     * @return The modifiable Color of this drawable.
+     */
+    public Color getColor() {
+        return color;
+    }
+    
+    /**
+     * Sets the color for this drawable. Note that this is a convenience method. Setting the color is achieved by
+     * modifying the current color: getColor().set(color).
+     * @param color
+     * @see TenPatchDrawable#getColor()
+     */
+    public void setColor(Color color) {
+        getColor().set(color);
+    }
+    
     /** Creates a new drawable that renders the same as this drawable tinted the specified color. */
     public TenPatchDrawable tint(Color tint) {
         TenPatchDrawable drawable = new TenPatchDrawable(this);
