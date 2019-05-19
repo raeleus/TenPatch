@@ -2,7 +2,7 @@
 tenpatch.png
 size: 1024,1024
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 Bitter-Bold
   rotate: false
@@ -52,52 +52,52 @@ eye-animation
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 17
+  index: 21
 eye-animation
   rotate: false
   xy: 187, 807
+  size: 184, 137
+  orig: 184, 137
+  offset: 0, 0
+  index: 22
+eye-animation
+  rotate: false
+  xy: 1, 529
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
   index: 0
 eye-animation
   rotate: false
-  xy: 187, 807
-  size: 184, 137
-  orig: 184, 137
-  offset: 0, 0
-  index: 24
-eye-animation
-  rotate: false
-  xy: 187, 807
-  size: 184, 137
-  orig: 184, 137
-  offset: 0, 0
-  index: 19
-eye-animation
-  rotate: false
-  xy: 187, 807
+  xy: 1, 529
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
   index: 23
 eye-animation
   rotate: false
-  xy: 187, 807
+  xy: 1, 529
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 18
+  index: 24
 eye-animation
   rotate: false
-  xy: 187, 807
+  xy: 1, 529
+  size: 184, 137
+  orig: 184, 137
+  offset: 0, 0
+  index: 19
+eye-animation
+  rotate: false
+  xy: 1, 529
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
   index: 20
 eye-animation
   rotate: false
-  xy: 187, 807
+  xy: 1, 529
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
@@ -108,63 +108,63 @@ eye-animation
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 10
+  index: 17
+eye-animation
+  rotate: false
+  xy: 1, 529
+  size: 184, 137
+  orig: 184, 137
+  offset: 0, 0
+  index: 18
 eye-animation
   rotate: false
   xy: 187, 668
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 11
+  index: 2
 eye-animation
   rotate: false
   xy: 1, 390
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 12
+  index: 11
 eye-animation
   rotate: false
   xy: 187, 529
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 13
+  index: 12
 eye-animation
   rotate: false
   xy: 1, 251
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 14
+  index: 13
 eye-animation
   rotate: false
   xy: 187, 390
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 15
+  index: 14
 eye-animation
   rotate: false
   xy: 1, 112
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
+  index: 15
+eye-animation
+  rotate: false
+  xy: 187, 251
+  size: 184, 137
+  orig: 184, 137
+  offset: 0, 0
   index: 4
-eye-animation
-  rotate: false
-  xy: 187, 251
-  size: 184, 137
-  orig: 184, 137
-  offset: 0, 0
-  index: 21
-eye-animation
-  rotate: false
-  xy: 187, 251
-  size: 184, 137
-  orig: 184, 137
-  offset: 0, 0
-  index: 22
 eye-animation
   rotate: false
   xy: 187, 112
@@ -178,35 +178,35 @@ eye-animation
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 2
+  index: 3
 eye-animation
   rotate: false
   xy: 373, 668
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 3
+  index: 5
 eye-animation
   rotate: false
   xy: 373, 529
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 5
+  index: 6
 eye-animation
   rotate: false
   xy: 373, 390
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 6
+  index: 7
 eye-animation
   rotate: false
   xy: 373, 251
   size: 184, 137
   orig: 184, 137
   offset: 0, 0
-  index: 7
+  index: 10
 music
   rotate: false
   xy: 185, 35
