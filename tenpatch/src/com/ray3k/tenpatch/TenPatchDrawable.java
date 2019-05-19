@@ -231,8 +231,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                     drawV2 = v + (v2 - v) * texY2 / h;
     
                     if (texture.getMagFilter() == Texture.TextureFilter.Linear || texture.getMinFilter() == Texture.TextureFilter.Linear) {
-                        drawV -= .5f /texture.getWidth();
-                        drawV2 += .5f /texture.getWidth();
+                        drawV -= .5f /texture.getHeight();
+                        drawV2 += .5f /texture.getHeight();
                     }
                     
                     drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, true, false);
@@ -251,6 +251,14 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                         drawV = v + (v2 - v) * texY1 / h;
                         drawU2 = u + (u2 - u) * texX2 / w;
                         drawV2 = v + (v2 - v) * texY2 / h;
+    
+                        if (texture.getMagFilter() == Texture.TextureFilter.Linear || texture.getMinFilter() == Texture.TextureFilter.Linear) {
+                            drawU += .5f /texture.getWidth();
+                            drawU2 -= .5f /texture.getWidth();
+                            drawV -= .5f /texture.getHeight();
+                            drawV2 += .5f /texture.getHeight();
+                        }
+                        
                         drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, false, false);
 
                         originX += drawWidth;
