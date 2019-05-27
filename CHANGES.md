@@ -1,5 +1,10 @@
 # CHANGES #
 
+### Version 2 ###
+
+* The Ten Patch Color has accessor methods. Use this to change the color of the drawable on the fly.
+* Resolved issues with blurry drawables when the image is packed in a linear/linear atlas.
+
 ### Version 1 ###
 
 * Multiple stretch regions as seen with Android's implementation.

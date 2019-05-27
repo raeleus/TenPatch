@@ -2,14 +2,16 @@
 
 ### TenPatch ###
 
-Version 1
+Version 2
 
-This project is an alternative to libGDX's 9patch implementation. It aims to have the following features:
+This project is an alternative to libGDX's 9patch implementation. It has the following features:
 
 * Multiple stretch regions as seen with Android's implementation.
 * An option for tiling stretch regions.
+* Tintable.
+* Can be shrunk to size 0 without the artificats as seen in libGDX's 9patch.
 * Loading via skin JSON.
-* An editor via Skin Composer
+* An editor via [Skin Composer](https://github.com/raeleus/skin-composer).
 
 ### How to Use ###
 
@@ -34,12 +36,13 @@ project(":core") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus:TenPatch:1.0'
+        compile 'com.github.raeleus:TenPatch:2.0'
     }
 }
 ```
 
 Please see the examples in the [demo project](https://github.com/raeleus/TenPatch/tree/master/demo/src/com/ray3k/tenpatch/demo/desktop).
+To create and edit your own Ten Patches, see the [documentation in Skin Composer](https://github.com/raeleus/skin-composer/wiki/Ten-Patches).
 
 ### Contact ###
 
