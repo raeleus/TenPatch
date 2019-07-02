@@ -1,8 +1,13 @@
 # CHANGES #
 
+### Version 3.1.0 ###
+
+* Switched to semantic versioning.
+* Added offset and offsetSpeed options to allow for a scrolling/animated background effect.
+
 ### Version 3 ###
 
-* Downgraded libGDX version to 1.9.9
+* Downgraded libGDX version to 1.9.9.
 
 ### Version 2 ###
 
