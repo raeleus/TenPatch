@@ -80,7 +80,7 @@ public class Demo extends ApplicationAdapter {
                 tableLeft.clear();
                 tableLeft.setBackground((Drawable) null);
                 
-                Image image = new Image(skin, "brick-wall");
+                Image image = new Image(skin, "brick-wall-ten");
                 image.setScaling(Scaling.stretch);
                 tableLeft.add(image).grow();
             }
@@ -96,12 +96,12 @@ public class Demo extends ApplicationAdapter {
                 tableLeft.setBackground(skin.getDrawable("black"));
                 
                 tableLeft.defaults().growX();
-                Image image = new Image(skin, "music");
+                Image image = new Image(skin, "music-ten");
                 image.setScaling(Scaling.stretch);
                 tableLeft.add(image).growX();
                 
                 tableLeft.row();
-                image = new Image(skin, "skull");
+                image = new Image(skin, "skull-ten");
                 image.setScaling(Scaling.stretch);
                 tableLeft.add(image).growX();
             }
@@ -116,7 +116,7 @@ public class Demo extends ApplicationAdapter {
                 tableLeft.clear();
                 tableLeft.setBackground((Drawable) null);
                 
-                Image image = new Image(skin, "brick-wall-tinted");
+                Image image = new Image(skin, "brick-wall-ten-tinted");
                 image.setScaling(Scaling.stretch);
                 tableLeft.add(image).grow();
             }
@@ -146,7 +146,7 @@ public class Demo extends ApplicationAdapter {
                 tableLeft.clear();
                 tableLeft.setBackground((Drawable) null);
                 
-                Image image = new Image(skin, "window");
+                Image image = new Image(skin, "window-ten");
                 image.setScaling(Scaling.stretch);
                 tableLeft.add(image).grow();
             }
