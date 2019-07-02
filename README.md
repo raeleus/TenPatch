@@ -2,7 +2,7 @@
 
 ### TenPatch ###
 
-Version 2
+Version 3
 
 This project is an alternative to libGDX's 9patch implementation. It has the following features:
 
@@ -36,7 +36,7 @@ project(":core") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus.TenPatch:tenpatch:2.0'
+        compile 'com.github.raeleus.TenPatch:tenpatch:3.0'
     }
 }
 ```
