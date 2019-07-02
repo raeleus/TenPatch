@@ -173,6 +173,18 @@
 		"leftWidth": 0,
 		"bottomHeight": 0,
 		"topHeight": 0
+	},
+	"sand-ten": {
+		"region": "sand",
+		"horizontalStretchAreas": [ 60, 239 ],
+		"verticalStretchAreas": [ 60, 239 ],
+		"tiling": true,
+		"minWidth": 300,
+		"minHeight": 300,
+		"rightWidth": 60,
+		"leftWidth": 60,
+		"bottomHeight": 60,
+		"topHeight": 60
 	}
 },
 "com.ray3k.tenpatch.AnimatedTenPatchDrawable": {
