@@ -25,10 +25,13 @@ package com.ray3k.tenpatch;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import javax.swing.plaf.synth.Region;
 
 /**
  * TenPatchDrawable is an alternative to libGDX's implementation of 9-patch. The
@@ -55,6 +58,11 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public int[] horizontalStretchAreas;
     public int[] verticalStretchAreas;
     public boolean tiling;
+    public float offsetX;
+    public float offsetY;
+    public float offsetXspeed;
+    public float offsetYspeed;
+    public float time;
     
     /**
      * No-argument constructor necessary for loading via JSON.
@@ -178,7 +186,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                 drawV = v + (v2 - v) * texY1 / h;
                 drawU2 = u + (u2 - u) * texX2 / w;
                 drawV2 = v + (v2 - v) * texY2 / h;
-                drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, true, true);
+                drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, true, true, false, false);
 
                 originX += drawWidth;
                 xIndex++;
@@ -200,7 +208,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                         drawU2 -= .5f /texture.getWidth();
                     }
                     
-                    drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, false, true);
+                    drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, false, true, true, false);
 
                     originX += drawWidth;
                     xIndex++;
@@ -235,7 +243,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                         drawV2 += .5f /texture.getHeight();
                     }
                     
-                    drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, true, false);
+                    drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, true, false, false, true);
 
                     originX += drawWidth;
                     xIndex++;
@@ -259,7 +267,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                             drawV2 += .5f /texture.getHeight();
                         }
                         
-                        drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, false, false);
+                        drawPatches(batch, texture, x, y, originX, originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2, texX1, texX2, texY1, texY2, false, false, true, true);
 
                         originX += drawWidth;
                         xIndex++;
@@ -297,26 +305,64 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      * @param squeezeX
      * @param squeezeY 
      */
-    private void drawPatches(Batch batch, Texture texture, float x, float y, float originX, float originY, float drawWidth, float drawHeight, float drawU, float drawV, float drawU2, float drawV2, float texX1, float texX2, float texY1, float texY2, boolean squeezeX, boolean squeezeY) {
-        if (!tiling) {
+    private void drawPatches(Batch batch, Texture texture, float x, float y, float originX, float originY, float drawWidth, float drawHeight, float drawU, float drawV, float drawU2, float drawV2, float texX1, float texX2, float texY1, float texY2, boolean squeezeX, boolean squeezeY, boolean tilingX, boolean tilingY) {
+        if (!tilingX && !tilingY || !this.tiling) {
             batch.draw(texture, x + originX, y + originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2);
         } else {
+            int offsetXadjusted = (int) (offsetX % (texX2 - texX1));
+            int offsetYadjusted = (int) (offsetY % (texY2 - texY1));
+            
             int i, j;
-            for (j = 0; j + texY2 - texY1 <= drawHeight && texY2 - texY1 > 0; j += texY2 - texY1) {
-                for (i = 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
+            
+            //partial row as a result of offsetY
+            if (tilingY) {
+                //partial cell as result of offsetX
+                if (tilingX && offsetXadjusted > 0) {
+                    batch.draw(texture, x + originX, y + originY, offsetXadjusted, offsetYadjusted, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
+                }
+    
+                //repeating horizontal cells
+                for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
+                    batch.draw(texture, x + originX + i, y + originY, texX2 - texX1, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
+                }
+    
+                //remainder
+                if (i < drawWidth) {
+                    batch.draw(texture, x + originX + i, y + originY, drawWidth - i, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
+                }
+            }
+            
+            //repeating vertical rows
+            for (j = tilingY ? offsetYadjusted : 0; j + texY2 - texY1 <= drawHeight && texY2 - texY1 > 0; j += texY2 - texY1) {
+                //partial cell as result of offsetX
+                if (tilingX && offsetXadjusted > 0) {
+                    batch.draw(texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
+                }
+                
+                //repeating horizontal cells
+                for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
                     batch.draw(texture, x + originX + i, y + originY + j, texX2 - texX1, texY2 - texY1, drawU, drawV, drawU2, drawV2);
                 }
                 
+                //remainder
                 if (i < drawWidth) {
                     batch.draw(texture, x + originX + i, y + originY + j, drawWidth - i, texY2 - texY1, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
                 }
             }
             
+            //remaining row
             if (j < drawHeight) {
-                for (i = 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
-                    batch.draw(texture, x + originX + i, y + originY + j, texX2 - texX1, drawHeight - j, drawU, drawV, drawU2, squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
+                //partial cell as result of offsetX
+                if (tilingX && offsetXadjusted > 0) {
+                    batch.draw(texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
                 }
                 
+                //repeating horizontal cells
+                for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
+                    batch.draw(texture, x + originX + i, y + originY + j, texX2 - texX1, drawHeight - j, drawU, drawV, drawU2, squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
+                }
+    
+                //remainder
                 if (i < drawWidth) {
                     batch.draw(texture, x + originX + i, y + originY + j, drawWidth - i, drawHeight - j, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
                 }
@@ -343,6 +389,17 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public void draw(Batch batch, float x, float y, float originX, float originY, float width, float height, float scaleX,
             float scaleY, float rotation) {
         throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * This method must be called to update the offset via offsetXspeed and offsetYspeed
+     * @param delta
+     */
+    public void update(float delta) {
+        time += delta;
+        
+        offsetX = offsetX + offsetXspeed * delta;
+        offsetY = offsetY + offsetYspeed * delta;
     }
     
     /**
@@ -409,8 +466,112 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public boolean isTiling() {
         return tiling;
     }
-
+    
+    /**
+     * Specifies if the area specified by the stretch areas will be tiled instead of just stretched.
+     * @param tiling
+     */
     public void setTiling(boolean tiling) {
         this.tiling = tiling;
+    }
+    
+    public float getOffsetX() {
+        return offsetX;
+    }
+    
+    /**
+     * Sets the x-offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * @see TenPatchDrawable#setTiling(boolean)
+     * @param offsetX
+     */
+    public void setOffsetX(float offsetX) {
+        this.offsetX = offsetX;
+    }
+    
+    public float getOffsetY() {
+        return offsetY;
+    }
+    
+    /**
+     * Sets the y-offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * @see TenPatchDrawable#setTiling(boolean)
+     * @param offsetY
+     */
+    public void setOffsetY(float offsetY) {
+        this.offsetY = offsetY;
+    }
+    
+    /**
+     * Sets the offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * @see TenPatchDrawable#setTiling(boolean)
+     * @param offsetX
+     * @param offsetY
+     */
+    public void setOffset(float offsetX, float offsetY) {
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+    }
+    
+    /**
+     * Sets the offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * @see TenPatchDrawable#setTiling(boolean)
+     * @param offset
+     */
+    public void setOffset(float offset) {
+        setOffset(offset, offset);
+    }
+    
+    public float getOffsetXspeed() {
+        return offsetXspeed;
+    }
+    
+    /**
+     * Sets a horizontal speed to update the tile offsets to achieve an animated effect. update() must be called to
+     * update the values;
+     * @see TenPatchDrawable#setOffset(float, float)
+     * @see TenPatchDrawable#update(float)
+     * @param offsetXspeed
+     */
+    public void setOffsetXspeed(float offsetXspeed) {
+        this.offsetXspeed = offsetXspeed;
+    }
+    
+    public float getOffsetYspeed() {
+        return offsetYspeed;
+    }
+    
+    /**
+     * Sets a vertical speed to update the tile offsets to achieve an animated effect. update() must be called to update
+     * the values;
+     * @see TenPatchDrawable#setOffset(float, float)
+     * @see TenPatchDrawable#update(float)
+     * @param offsetYspeed
+     */
+    public void setOffsetYspeed(float offsetYspeed) {
+        this.offsetYspeed = offsetYspeed;
+    }
+    
+    /**
+     * Sets a horizontal and vertical speed to update the tile offsets to achieve an animated effect. update() must be
+     * called to update the values;
+     * @see TenPatchDrawable#setOffset(float, float)
+     * @see TenPatchDrawable#update(float)
+     * @param offsetXspeed
+     * @param offsetYspeed
+     */
+    public void setOffsetSpeed(float offsetXspeed, float offsetYspeed) {
+        this.offsetXspeed = offsetXspeed;
+        this.offsetYspeed = offsetYspeed;
+    }
+    
+    /**
+     * Sets a horizontal and vertical speed to update the tile offsets to achieve an animated effect. update() must be
+     * called to update the values;
+     * @see TenPatchDrawable#setOffset(float, float)
+     * @see TenPatchDrawable#update(float)
+     * @param offsetSpeed
+     */
+    public void setOffsetSpeed(float offsetSpeed) {
+        setOffsetSpeed(offsetSpeed, offsetSpeed);
     }
 }

@@ -34,13 +34,11 @@ import com.badlogic.gdx.utils.Array;
  * stretch areas will be applied to all frames of the animation.
  * @author Raymond
  * @see TenPatchDrawable
- * @see AnimtedTenPatchDrawable#update(float)
  */
 public class AnimatedTenPatchDrawable extends TenPatchDrawable {
     private Animation<TextureRegion> animation;
     private Array<TextureRegion> regions;
     private float frameDuration;
-    private float time;
 
     /**
      * No-argument constructor necessary for loading via JSON.
@@ -102,8 +100,9 @@ public class AnimatedTenPatchDrawable extends TenPatchDrawable {
      * @param delta
      * @see ApplicationListener#render() 
      */
+    @Override
     public void update(float delta) {
-        time += delta;
+        super.update(delta);
         
         if (animation == null && regions != null) {
             animation = new Animation<TextureRegion>(frameDuration, regions, Animation.PlayMode.LOOP);
