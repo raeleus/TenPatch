@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 3 ###
+
+* Downgraded libGDX version to 1.9.9
+
 ### Version 2 ###
 
 * The Ten Patch Color has accessor methods. Use this to change the color of the drawable on the fly.
