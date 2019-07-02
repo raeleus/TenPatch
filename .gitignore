@@ -127,3 +127,4 @@ Thumbs.db
 !/ios-moe/xcode/*.xcodeproj/xcshareddata
 !/ios-moe/xcode/*.xcodeproj/project.pbxproj
 /ios-moe/xcode/native/
+demo/out/production/classes/META-INF/tenpatch.demo.main.kotlin_module
