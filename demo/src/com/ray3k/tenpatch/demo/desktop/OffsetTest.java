@@ -34,6 +34,7 @@ public class OffsetTest extends ApplicationAdapter {
         root.setFillParent(true);
         stage.addActor(root);
     
+        root.pad(30);
         Image image = new Image(skin, "sand-ten");
         image.setScaling(Scaling.stretch);
         root.add(image).grow();

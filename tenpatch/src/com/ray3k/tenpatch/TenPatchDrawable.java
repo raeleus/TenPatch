@@ -314,53 +314,57 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             if (tilingY) {
                 //partial cell as result of offsetX
                 if (tilingX && offsetXadjusted > 0) {
-                    drawToBatch(batch, texture, x + originX, y + originY, offsetXadjusted, offsetYadjusted, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
+                    float xValue = x + originX;
+                    float yValue = y + originY;
+                    float width = Math.min(offsetXadjusted, drawWidth);
+                    float height = Math.min(offsetYadjusted, drawHeight);
+                    float u = drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1);
+                    float v = drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2);
+                    float u2 = Math.min(drawU2, drawU2 - (drawU2 - drawU) * (offsetXadjusted - drawWidth) / (texX2 - texX1));
+                    float v2 = Math.max(drawV2, drawV2 - (drawV - drawV2) * (offsetYadjusted - drawHeight) / (texY1 - texY2));
+                    drawToBatch(batch, texture, xValue, yValue, width, height, u, v, u2, v2);
                 }
     
                 //repeating horizontal cells
-                for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
-                    drawToBatch(batch, texture, x + originX + i, y + originY, texX2 - texX1, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
-                }
-    
-                //remainder
-                if (i < drawWidth) {
-                    drawToBatch(batch, texture, x + originX + i, y + originY, drawWidth - i, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
+                for (i = tilingX ? offsetXadjusted : 0; i < drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
+                    float xValue = x + originX + i;
+                    float yValue = y + originY;
+                    float width = Math.min(texX2 - texX1, drawWidth - i);
+                    float height = Math.min(offsetYadjusted, drawHeight);
+                    float u = drawU;
+                    float v = drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2);
+                    float u2 = Math.min(drawU2, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1));
+                    float v2 = Math.max(drawV2, drawV2 - (drawV - drawV2) * (offsetYadjusted - drawHeight) / (texY1 - texY2));
+                    drawToBatch(batch, texture, xValue, yValue, width, height, u, v, u2, v2);
                 }
             }
             
             //repeating vertical rows
-            for (j = tilingY ? offsetYadjusted : 0; j + texY2 - texY1 <= drawHeight && texY2 - texY1 > 0; j += texY2 - texY1) {
+            for (j = tilingY ? offsetYadjusted : 0; j < drawHeight && texY2 - texY1 > 0; j += texY2 - texY1) {
                 //partial cell as result of offsetX
                 if (tilingX && offsetXadjusted > 0) {
-                    drawToBatch(batch, texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
+                    float xValue = x + originX;
+                    float yValue = y + originY + j;
+                    float width = Math.min(offsetXadjusted, drawWidth);
+                    float height = Math.min(texY2 - texY1, drawHeight - j);
+                    float u = drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1);
+                    float v = drawV;
+                    float u2 = Math.min(drawU2, drawU2 - (drawU2 - drawU) * (offsetXadjusted - drawWidth) / (texX2 - texX1));
+                    float v2 = Math.max(drawV2, squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
+                    drawToBatch(batch, texture, xValue, yValue, width, height, u, v, u2, v2);
                 }
                 
                 //repeating horizontal cells
-                for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
-                    drawToBatch(batch, texture, x + originX + i, y + originY + j, texX2 - texX1, texY2 - texY1, drawU, drawV, drawU2, drawV2);
-                }
-                
-                //remainder
-                if (i < drawWidth) {
-                    drawToBatch(batch, texture, x + originX + i, y + originY + j, drawWidth - i, texY2 - texY1, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
-                }
-            }
-            
-            //remaining row
-            if (j < drawHeight) {
-                //partial cell as result of offsetX
-                if (tilingX && offsetXadjusted > 0) {
-                    drawToBatch(batch, texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
-                }
-                
-                //repeating horizontal cells
-                for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
-                    drawToBatch(batch, texture, x + originX + i, y + originY + j, texX2 - texX1, drawHeight - j, drawU, drawV, drawU2, squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
-                }
-    
-                //remainder
-                if (i < drawWidth) {
-                    drawToBatch(batch, texture, x + originX + i, y + originY + j, drawWidth - i, drawHeight - j, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
+                for (i = tilingX ? offsetXadjusted : 0; i < drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
+                    float xValue = x + originX + i;
+                    float yValue = y + originY + j;
+                    float width = Math.min(texX2 - texX1, drawWidth - i);
+                    float height = Math.min(texY2 - texY1, drawHeight - j);
+                    float u = drawU;
+                    float v = drawV;
+                    float u2 = Math.min(drawU2, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1));
+                    float v2 = Math.max(drawV2, squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
+                    drawToBatch(batch, texture, xValue, yValue, width, height, u, v, u2, v2);
                 }
             }
         }
