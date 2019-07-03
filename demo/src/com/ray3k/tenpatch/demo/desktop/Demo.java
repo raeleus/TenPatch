@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.ray3k.tenpatch.AnimatedTenPatchDrawable;
+import com.ray3k.tenpatch.TenPatchDrawable;
 
 /**
  * This class showcases the different capabilities of the TenPatchDrawable.
@@ -165,6 +167,40 @@ public class Demo extends ApplicationAdapter {
                 tableLeft.add(progressBar).growX();
             }
         });
+    
+        tableRight.row();
+        textButton = new TextButton("Scrolling Tiles", skin);
+        tableRight.add(textButton);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                tableLeft.clear();
+                tableLeft.setBackground((Drawable) null);
+    
+                TenPatchDrawable tenPatchDrawable = skin.get("sand-ten", TenPatchDrawable.class);
+                tenPatchDrawable.setOffsetSpeed(20);
+                Image image = new Image(tenPatchDrawable);
+                image.setScaling(Scaling.stretch);
+                tableLeft.add(image).grow();
+            }
+        });
+    
+        tableRight.row();
+        textButton = new TextButton("Gradient", skin);
+        tableRight.add(textButton);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                tableLeft.clear();
+                tableLeft.setBackground((Drawable) null);
+                
+                TenPatchDrawable tenPatchDrawable = skin.get("white-ten", TenPatchDrawable.class);
+                tenPatchDrawable.setColors(Color.PURPLE, Color.BLUE, Color.BLUE, Color.PURPLE);
+                Image image = new Image(tenPatchDrawable);
+                image.setScaling(Scaling.stretch);
+                tableLeft.add(image).grow();
+            }
+        });
     }
 
     @Override
@@ -173,6 +209,9 @@ public class Demo extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         float delta = Gdx.graphics.getDeltaTime();
+        for (Entry<String, TenPatchDrawable> entry: skin.getAll(TenPatchDrawable.class)) {
+            entry.value.update(delta);
+        }
         for (Entry<String, AnimatedTenPatchDrawable> entry: skin.getAll(AnimatedTenPatchDrawable.class)) {
             entry.value.update(delta);
         }
