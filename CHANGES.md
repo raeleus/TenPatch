@@ -4,6 +4,7 @@
 
 * Switched to semantic versioning.
 * Added offset and offsetSpeed options to allow for a scrolling/animated background effect.
+* Added color1, color2, color3, and color4 options to create gradients and psychedelic effects.
 
 ### Version 3 ###
 

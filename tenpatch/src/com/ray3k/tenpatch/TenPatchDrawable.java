@@ -25,13 +25,10 @@ package com.ray3k.tenpatch;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
-import javax.swing.plaf.synth.Region;
 
 /**
  * TenPatchDrawable is an alternative to libGDX's implementation of 9-patch. The
@@ -55,6 +52,10 @@ import javax.swing.plaf.synth.Region;
 public class TenPatchDrawable extends TextureRegionDrawable {
     static private final Color temp = new Color();
     private final Color color = new Color(1, 1, 1, 1);
+    private Color color1;
+    private Color color2;
+    private Color color3;
+    private Color color4;
     public int[] horizontalStretchAreas;
     public int[] verticalStretchAreas;
     public boolean tiling;
@@ -63,6 +64,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public float offsetXspeed;
     public float offsetYspeed;
     public float time;
+    private final float[] verts = new float[20];
     
     /**
      * No-argument constructor necessary for loading via JSON.
@@ -127,10 +129,6 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                 throw new InvalidPatchException();
             }
         }
-        
-        Color batchColor = batch.getColor();
-        temp.set(batchColor);
-        batch.setColor(batchColor.mul(color));
 
         //properties from the texture region
         TextureRegion region = getRegion();
@@ -279,8 +277,6 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             }
             texY1 = texY2;
         }
-
-        batch.setColor(temp);
     }
     
     /**
@@ -307,7 +303,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      */
     private void drawPatches(Batch batch, Texture texture, float x, float y, float originX, float originY, float drawWidth, float drawHeight, float drawU, float drawV, float drawU2, float drawV2, float texX1, float texX2, float texY1, float texY2, boolean squeezeX, boolean squeezeY, boolean tilingX, boolean tilingY) {
         if (!tilingX && !tilingY || !this.tiling) {
-            batch.draw(texture, x + originX, y + originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2);
+            drawToBatch(batch, texture, x + originX, y + originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2);
         } else {
             int offsetXadjusted = (int) (offsetX % (texX2 - texX1));
             int offsetYadjusted = (int) (offsetY % (texY2 - texY1));
@@ -318,17 +314,17 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             if (tilingY) {
                 //partial cell as result of offsetX
                 if (tilingX && offsetXadjusted > 0) {
-                    batch.draw(texture, x + originX, y + originY, offsetXadjusted, offsetYadjusted, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
+                    drawToBatch(batch, texture, x + originX, y + originY, offsetXadjusted, offsetYadjusted, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
                 }
     
                 //repeating horizontal cells
                 for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
-                    batch.draw(texture, x + originX + i, y + originY, texX2 - texX1, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
+                    drawToBatch(batch, texture, x + originX + i, y + originY, texX2 - texX1, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), drawU2, drawV2);
                 }
     
                 //remainder
                 if (i < drawWidth) {
-                    batch.draw(texture, x + originX + i, y + originY, drawWidth - i, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
+                    drawToBatch(batch, texture, x + originX + i, y + originY, drawWidth - i, offsetYadjusted, drawU, drawV2 - (drawV - drawV2) * offsetYadjusted / (texY1 - texY2), squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
                 }
             }
             
@@ -336,17 +332,17 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             for (j = tilingY ? offsetYadjusted : 0; j + texY2 - texY1 <= drawHeight && texY2 - texY1 > 0; j += texY2 - texY1) {
                 //partial cell as result of offsetX
                 if (tilingX && offsetXadjusted > 0) {
-                    batch.draw(texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
+                    drawToBatch(batch, texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
                 }
                 
                 //repeating horizontal cells
                 for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
-                    batch.draw(texture, x + originX + i, y + originY + j, texX2 - texX1, texY2 - texY1, drawU, drawV, drawU2, drawV2);
+                    drawToBatch(batch, texture, x + originX + i, y + originY + j, texX2 - texX1, texY2 - texY1, drawU, drawV, drawU2, drawV2);
                 }
                 
                 //remainder
                 if (i < drawWidth) {
-                    batch.draw(texture, x + originX + i, y + originY + j, drawWidth - i, texY2 - texY1, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
+                    drawToBatch(batch, texture, x + originX + i, y + originY + j, drawWidth - i, texY2 - texY1, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), drawV2);
                 }
             }
             
@@ -354,20 +350,55 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             if (j < drawHeight) {
                 //partial cell as result of offsetX
                 if (tilingX && offsetXadjusted > 0) {
-                    batch.draw(texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
+                    drawToBatch(batch, texture, x + originX, y + originY + j, offsetXadjusted, texY2 - texY1, drawU2 - (drawU2 - drawU) * offsetXadjusted / (texX2 - texX1), drawV, drawU2, drawV2);
                 }
                 
                 //repeating horizontal cells
                 for (i = tilingX ? offsetXadjusted : 0; i + texX2 - texX1 <= drawWidth && texX2 - texX1 > 0; i += texX2 - texX1) {
-                    batch.draw(texture, x + originX + i, y + originY + j, texX2 - texX1, drawHeight - j, drawU, drawV, drawU2, squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
+                    drawToBatch(batch, texture, x + originX + i, y + originY + j, texX2 - texX1, drawHeight - j, drawU, drawV, drawU2, squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
                 }
     
                 //remainder
                 if (i < drawWidth) {
-                    batch.draw(texture, x + originX + i, y + originY + j, drawWidth - i, drawHeight - j, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
+                    drawToBatch(batch, texture, x + originX + i, y + originY + j, drawWidth - i, drawHeight - j, drawU, drawV, squeezeX ? drawU2 : drawU + (drawU2 - drawU) * (drawWidth - i) / (texX2 - texX1), squeezeY ? drawV2 : drawV + (drawV2 - drawV) * (drawHeight - j) / (texY2 - texY1));
                 }
             }
         }
+    }
+    
+    private void drawToBatch(Batch batch, Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2) {
+        temp.set(batch.getColor());
+        temp.mul(color);
+        
+        int i = 0;
+        verts[i++] = x;
+        verts[i++] = y;
+        temp.set(color1 != null ? color1 : color);
+        verts[i++] = temp.mul(batch.getColor()).toFloatBits();
+        verts[i++] = u;
+        verts[i++] = v;
+    
+        verts[i++] = x;
+        verts[i++] = y + height;
+        temp.set(color2 != null ? color2 : color);
+        verts[i++] = temp.mul(batch.getColor()).toFloatBits();
+        verts[i++] = u;
+        verts[i++] = v2;
+    
+        verts[i++] = x + width;
+        verts[i++] = y + height;
+        temp.set(color3 != null ? color3 : color);
+        verts[i++] = temp.mul(batch.getColor()).toFloatBits();
+        verts[i++] = u2;
+        verts[i++] = v2;
+    
+        verts[i++] = x + width;
+        verts[i++] = y;
+        temp.set(color4 != null ? color4 : color);
+        verts[i++] = temp.mul(batch.getColor()).toFloatBits();
+        verts[i++] = u2;
+        verts[i++] = v;
+        batch.draw(texture, verts, 0, verts.length);
     }
     
     /**
@@ -573,5 +604,75 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      */
     public void setOffsetSpeed(float offsetSpeed) {
         setOffsetSpeed(offsetSpeed, offsetSpeed);
+    }
+    
+    public Color getColor1() {
+        return color1;
+    }
+    
+    /**
+     * Sets the lower left color of the drawing of each patch. Useful for making gradients or psychedelic effects.
+     * Overrides color.
+     * @param color1 Can be null.
+     * @see TenPatchDrawable#setColor(Color)
+     */
+    public void setColor1(Color color1) {
+        this.color1 = (this.color1 == null ? new Color() : color1).set(color1);
+    }
+    
+    public Color getColor2() {
+        return color2;
+    }
+    
+    /**
+     * Sets the upper left color of the drawing of each patch. Useful for making gradients or psychedelic effects.
+     * Overrides color.
+     * @param color2 Can be null.
+     * @see TenPatchDrawable#setColor(Color)
+     */
+    public void setColor2(Color color2) {
+        this.color2 = (this.color2 == null ? new Color() : color2).set(color2);
+    }
+    
+    public Color getColor3() {
+        return color3;
+    }
+    
+    /**
+     * Sets the upper right color of the drawing of each patch. Useful for making gradients or psychedelic effects.
+     * Overrides color.
+     * @param color3 Can be null.
+     * @see TenPatchDrawable#setColor(Color)
+     */
+    public void setColor3(Color color3) {
+        this.color3 = (this.color3 == null ? new Color() : color3).set(color3);
+    }
+    
+    public Color getColor4() {
+        return color4;
+    }
+    
+    /**
+     * Sets the lower right color of the drawing of each patch. Useful for making gradients or psychedelic effects.
+     * Overrides color.
+     * @param color4 Can be null.
+     * @see TenPatchDrawable#setColor(Color)
+     */
+    public void setColor4(Color color4) {
+        this.color4 = (this.color4 == null ? new Color() : color4).set(color4);
+    }
+    
+    /**
+     * Sets the colors of the drawing of each patch. Useful for making gradients or psychedelic effects. Overrides color.
+     * @param color1 The lower left color. Can be null.
+     * @param color2 The upper left color. Can be null.
+     * @param color3 The upper right color. Can be null.
+     * @param color4 The lower right color. Can be null.
+     */
+    public void setColors(Color color1, Color color2, Color color3, Color color4) {
+        setColor1(color1);
+        setColor2(color2);
+        setColor3(color3);
+        setColor4(color4);
     }
 }

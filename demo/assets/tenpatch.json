@@ -185,6 +185,18 @@
 		"leftWidth": 60,
 		"bottomHeight": 60,
 		"topHeight": 60
+	},
+	"white-ten": {
+		"region": "white",
+		"horizontalStretchAreas": [ 0, 0 ],
+		"verticalStretchAreas": [ 0, 0 ],
+		"tiling": false,
+		"minWidth": 1,
+		"minHeight": 1,
+		"rightWidth": 0,
+		"leftWidth": 0,
+		"bottomHeight": 0,
+		"topHeight": 0
 	}
 },
 "com.ray3k.tenpatch.AnimatedTenPatchDrawable": {
