@@ -367,9 +367,6 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
     
     private void drawToBatch(Batch batch, Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2) {
-        temp.set(batch.getColor());
-        temp.mul(color);
-        
         int i = 0;
         verts[i++] = x;
         verts[i++] = y;
