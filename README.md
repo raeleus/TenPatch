@@ -18,7 +18,7 @@ This project is an alternative to libGDX's 9patch implementation. It has the fol
 
 Add the following to your root build.gradle:
 
-```
+```groovy
 allprojects {
     ...
     repositories {
@@ -30,17 +30,38 @@ allprojects {
 
 Add the dependency to the core project:
 
-```
+```groovy
 project(":core") {
     apply plugin: "java"
 
 
     dependencies {
         ...
-        compile 'com.github.raeleus.TenPatch:tenpatch:3.0'
+        compile 'com.github.raeleus.TenPatch:tenpatch:3.1.0'
     }
 }
 ```
+
+For HTML5/GWT support, add the dependency to the html project:
+
+```groovy
+project(":html") {
+    apply plugin: "gwt"
+    apply plugin: "war"
+
+
+    dependencies {
+        ...
+        compile 'com.github.raeleus.TenPatch:tenpatch:3.1.0:sources'
+    }
+}
+```
+
+And add the following line to the GdxDefinition.gwt.xml file in the HTML project:
+```xml
+<inherits name="com.ray3k.tenpatch.tenpatch"/>
+```
+
 
 Please see the examples in the [demo project](https://github.com/raeleus/TenPatch/tree/master/demo/src/com/ray3k/tenpatch/demo/desktop).
 To create and edit your own Ten Patches, see the [documentation in Skin Composer](https://github.com/raeleus/skin-composer/wiki/Ten-Patches).
