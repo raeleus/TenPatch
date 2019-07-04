@@ -36,7 +36,7 @@ import com.badlogic.gdx.utils.Array;
  * @see TenPatchDrawable
  */
 public class AnimatedTenPatchDrawable extends TenPatchDrawable {
-    private Animation<TextureRegion> animation;
+    private transient Animation<TextureRegion> animation;
     private Array<TextureRegion> regions;
     private float frameDuration;
 
