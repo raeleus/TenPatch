@@ -51,11 +51,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class TenPatchDrawable extends TextureRegionDrawable {
     static private final Color temp = new Color();
-    private final Color color = new Color(1, 1, 1, 1);
-    private Color color1;
-    private Color color2;
-    private Color color3;
-    private Color color4;
+    public final Color color = new Color(1, 1, 1, 1);
+    public Color color1;
+    public Color color2;
+    public Color color3;
+    public Color color4;
     public int[] horizontalStretchAreas;
     public int[] verticalStretchAreas;
     public boolean tiling;
@@ -64,7 +64,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public float offsetXspeed;
     public float offsetYspeed;
     public float time;
-    private final float[] verts = new float[20];
+    public final float[] verts = new float[20];
     
     /**
      * No-argument constructor necessary for loading via JSON.
