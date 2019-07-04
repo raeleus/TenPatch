@@ -51,7 +51,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 public class TenPatchDrawable extends TextureRegionDrawable {
     static private final Color temp = new Color();
-    public final Color color = new Color(1, 1, 1, 1);
+    public Color color = new Color(1, 1, 1, 1);
     public Color color1;
     public Color color2;
     public Color color3;
