@@ -21,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.ray3k.tenpatch.AnimatedTenPatchDrawable;
 import com.ray3k.tenpatch.TenPatchDrawable;
 
 /**
@@ -210,9 +209,6 @@ public class Demo extends ApplicationAdapter {
         
         float delta = Gdx.graphics.getDeltaTime();
         for (Entry<String, TenPatchDrawable> entry: skin.getAll(TenPatchDrawable.class)) {
-            entry.value.update(delta);
-        }
-        for (Entry<String, AnimatedTenPatchDrawable> entry: skin.getAll(AnimatedTenPatchDrawable.class)) {
             entry.value.update(delta);
         }
         stage.act(delta);

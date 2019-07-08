@@ -25,10 +25,14 @@ package com.ray3k.tenpatch;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.Arrays;
 
 /**
  * TenPatchDrawable is an alternative to libGDX's implementation of 9-patch. The
@@ -65,6 +69,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public float offsetYspeed;
     public float time;
     private final float[] verts = new float[20];
+    private Array<TextureRegion> regions;
+    private float frameDuration;
     
     /**
      * No-argument constructor necessary for loading via JSON.
@@ -82,7 +88,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      * @param other 
      */
     public TenPatchDrawable(TenPatchDrawable other) {
-        this(other.horizontalStretchAreas, other.verticalStretchAreas, other.tiling, other.getRegion());
+        set(other);
     }
     
     /**
@@ -103,6 +109,24 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         this.verticalStretchAreas = verticalStretchAreas;
         this.tiling = tiling;
         setRegion(region);
+    }
+    
+    public void set(TenPatchDrawable other) {
+        color = other.color;
+        color1 = other.color1;
+        color2 = other.color2;
+        color3 = other.color3;
+        color4 = other.color4;
+        horizontalStretchAreas = Arrays.copyOf(other.horizontalStretchAreas, other.horizontalStretchAreas.length);
+        verticalStretchAreas = Arrays.copyOf(other.verticalStretchAreas, other.verticalStretchAreas.length);
+        tiling = other.tiling;
+        offsetX = other.offsetX;
+        offsetY = other.offsetY;
+        offsetXspeed = other.offsetXspeed;
+        offsetYspeed = other.offsetYspeed;
+        time = other.time;
+        regions = new Array<TextureRegion>(other.regions);
+        frameDuration = other.frameDuration;
     }
 
     public static class InvalidPatchException extends RuntimeException {
@@ -426,7 +450,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
     
     /**
-     * This method must be called to update the offset via offsetXspeed and offsetYspeed
+     * This method must be called to update the offset via offsetXspeed and offsetYspeed. If regions have been set for
+     * animation, this will also update the animation;
      * @param delta
      */
     public void update(float delta) {
@@ -434,6 +459,17 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         
         offsetX = offsetX + offsetXspeed * delta;
         offsetY = offsetY + offsetYspeed * delta;
+
+        if (regions != null && regions.size > 0) {
+            TextureRegion region = getKeyFrame();
+            if (getRegion() == null || !getRegion().equals(region)) {
+                float minWidth = getMinWidth();
+                float minHeight = getMinHeight();
+                setRegion(region);
+                setMinWidth(minWidth);
+                setMinHeight(minHeight);
+            }
+        }
     }
     
     /**
@@ -677,5 +713,42 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         setColor2(color2);
         setColor3(color3);
         setColor4(color4);
+    }
+    
+    public Array<TextureRegion> getRegions() {
+        return regions;
+    }
+    
+    /**
+     * Specify regions to enable animation of the TenPatch. Setting an animation will override the single region setting.
+     * @param regions The list of regions to be animated in specified order. At least one region must be specified to
+     *                enable animation.
+     */
+    public void setRegions(Array<TextureRegion> regions) {
+        this.regions = regions;
+    }
+    
+    public float getFrameDuration() {
+        return frameDuration;
+    }
+    
+    public void setFrameDuration(float frameDuration) {
+        this.frameDuration = frameDuration;
+    }
+    
+    public TextureRegion getKeyFrame(float time) {
+        return regions.get((int) (time / frameDuration) % regions.size);
+    }
+    
+    public TextureRegion getKeyFrame() {
+        return getKeyFrame(time);
+    }
+    
+    public float getTime() {
+        return time;
+    }
+    
+    public void setTime(float time) {
+        this.time = time;
     }
 }

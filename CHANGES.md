@@ -2,7 +2,7 @@
 
 ### Version 4.0.0 ###
 
-
+* Merged AnimatedTenPatchDrawable features into TenPatchDrawable and removed AnimatedTenPatchDrawable class.
 
 ### Version 3.1.1 ###
 

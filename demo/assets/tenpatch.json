@@ -186,30 +186,6 @@
 		"bottomHeight": 60,
 		"topHeight": 60
 	},
-	"white-ten": {
-		"region": "white",
-		"horizontalStretchAreas": [ 0, 0 ],
-		"verticalStretchAreas": [ 0, 0 ],
-		"tiling": false,
-		"minWidth": 1,
-		"minHeight": 1,
-		"rightWidth": 0,
-		"leftWidth": 0,
-		"bottomHeight": 0,
-		"topHeight": 0
-	}
-},
-"com.ray3k.tenpatch.AnimatedTenPatchDrawable": {
-	"default": {
-		"tiling": false,
-		"leftWidth": 0,
-		"rightWidth": 0,
-		"topHeight": 0,
-		"bottomHeight": 0,
-		"minWidth": 0,
-		"minHeight": 0,
-		"name": "eye-animation"
-	},
 	"eye-animation": {
 		"horizontalStretchAreas": [ 26, 39, 144, 157 ],
 		"verticalStretchAreas": [ 24, 27, 109, 111 ],
@@ -223,6 +199,18 @@
 		"name": "eye-animation",
 		"regions": ["eye-animation_0", "eye-animation_1", "eye-animation_2", "eye-animation_3", "eye-animation_4", "eye-animation_5", "eye-animation_6", "eye-animation_7", "eye-animation_8", "eye-animation_9", "eye-animation_10", "eye-animation_11", "eye-animation_12", "eye-animation_13", "eye-animation_14", "eye-animation_15", "eye-animation_16", "eye-animation_17", "eye-animation_18", "eye-animation_19", "eye-animation_20", "eye-animation_21", "eye-animation_22", "eye-animation_23", "eye-animation_24"],
 		"frameDuration": 0.066666667
+	},
+	"white-ten": {
+		"region": "white",
+		"horizontalStretchAreas": [ 0, 0 ],
+		"verticalStretchAreas": [ 0, 0 ],
+		"tiling": false,
+		"minWidth": 1,
+		"minHeight": 1,
+		"rightWidth": 0,
+		"leftWidth": 0,
+		"bottomHeight": 0,
+		"topHeight": 0
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {

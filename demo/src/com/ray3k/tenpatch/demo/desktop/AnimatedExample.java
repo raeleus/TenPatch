@@ -11,9 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.ray3k.tenpatch.AnimatedTenPatchDrawable;
+import com.ray3k.tenpatch.TenPatchDrawable;
 
 /**
  * This class demonstrates the use of an AnimatedTenPatchDrawable loaded from a
@@ -25,7 +26,7 @@ import com.ray3k.tenpatch.AnimatedTenPatchDrawable;
 public class AnimatedExample extends ApplicationAdapter {
     private Stage stage;
     private TextureAtlas textureAtlas;
-    private AnimatedTenPatchDrawable animatedTenPatchDrawable;
+    private TenPatchDrawable animatedTenPatchDrawable;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -36,8 +37,11 @@ public class AnimatedExample extends ApplicationAdapter {
     public void create() {
         
         textureAtlas = new TextureAtlas(Gdx.files.internal("tenpatch.atlas"));
-        Animation<TextureRegion> animation = new Animation<TextureRegion>(1/15f, textureAtlas.findRegions("eye-animation"), Animation.PlayMode.LOOP);
-        animatedTenPatchDrawable = new AnimatedTenPatchDrawable(new int[] {26, 39, 144, 157}, new int[] {24, 27, 109, 111}, true, animation);
+        animatedTenPatchDrawable = new TenPatchDrawable();
+        animatedTenPatchDrawable.horizontalStretchAreas = new int[] {26, 39, 144, 157};
+        animatedTenPatchDrawable.verticalStretchAreas = new int[] {24, 27, 109, 111};
+        animatedTenPatchDrawable.setRegions(new Array<TextureRegion>(textureAtlas.findRegions("eye-animation")));
+        animatedTenPatchDrawable.setFrameDuration(1/15f);
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
