@@ -3,6 +3,7 @@
 ### Version 3.1.1 ###
 
 * Fixed negative offset speed resulting in tiling breaking bounds in the lower left.
+* Switched to using floats for offsets for buttery smooth scrolling action.
 
 ### Version 3.1.0 ###
 

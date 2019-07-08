@@ -28,7 +28,7 @@ public class OffsetTest extends ApplicationAdapter {
         skin = new Skin(Gdx.files.internal("tenpatch.json"));
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        skin.get("sand-ten", TenPatchDrawable.class).setOffsetSpeed(20);
+        skin.get("sand-ten", TenPatchDrawable.class).setOffsetSpeed(5);
     
         Table root = new Table();
         root.setFillParent(true);
