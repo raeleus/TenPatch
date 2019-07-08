@@ -23,6 +23,7 @@
  */
 package com.ray3k.tenpatch;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -71,6 +72,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     private final float[] verts = new float[20];
     private Array<TextureRegion> regions;
     private float frameDuration;
+    private boolean autoUpdate = true;
     
     /**
      * No-argument constructor necessary for loading via JSON.
@@ -127,6 +129,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         time = other.time;
         regions = new Array<TextureRegion>(other.regions);
         frameDuration = other.frameDuration;
+        autoUpdate = other.autoUpdate;
     }
 
     public static class InvalidPatchException extends RuntimeException {
@@ -147,6 +150,10 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      */
     @Override
     public void draw(Batch batch, float x, float y, float width, float height) {
+        if (autoUpdate) {
+            update(Gdx.graphics.getDeltaTime(), true);
+        }
+        
         float previousValue = 0;
         for (float value : horizontalStretchAreas) {
             if (value < previousValue || value >= getRegion().getRegionWidth()) {
@@ -451,10 +458,28 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     
     /**
      * This method must be called to update the offset via offsetXspeed and offsetYspeed. If regions have been set for
-     * animation, this will also update the animation;
+     * animation, this will also update the animation. This sets autoUpdate to false.
      * @param delta
+     * @see TenPatchDrawable#setOffsetSpeed(float, float)
+     * @see TenPatchDrawable#setRegions(Array)
+     * @see TenPatchDrawable#setAutoUpdate(boolean)
      */
     public void update(float delta) {
+        update(delta, false);
+    }
+    
+    /**
+     * This method must be called to update the offset via offsetXspeed and offsetYspeed. If regions have been set for
+     * animation, this will also update the animation.
+     * @param delta
+     * @param autoUpdate Sets autoUpdate to specified value for the next frame.
+     * @see TenPatchDrawable#setOffsetSpeed(float, float)
+     * @see TenPatchDrawable#setRegions(Array)
+     * @see TenPatchDrawable#setAutoUpdate(boolean)
+     * @see TenPatchDrawable#setAutoUpdate(boolean)
+     */
+    private void update(float delta, boolean autoUpdate) {
+        this.autoUpdate = autoUpdate;
         time += delta;
         
         offsetX = offsetX + offsetXspeed * delta;
@@ -750,5 +775,25 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     
     public void setTime(float time) {
         this.time = time;
+    }
+    
+    /**
+     * Returns whether the drawable automatically updates the animation and offset via Gdx.graphics.getDeltaTime().
+     * @return default true
+     * @see TenPatchDrawable#setOffsetSpeed(float, float)
+     * @see TenPatchDrawable#setRegions(Array)
+     */
+    public boolean isAutoUpdate() {
+        return autoUpdate;
+    }
+    
+    /**
+     * Automatically updates the animation and offset via Gdx.graphics.getDeltaTime().
+     * @param autoUpdate default true
+     * @see TenPatchDrawable#setOffsetSpeed(float, float)
+     * @see TenPatchDrawable#setRegions(Array)
+     */
+    public void setAutoUpdate(boolean autoUpdate) {
+        this.autoUpdate = autoUpdate;
     }
 }

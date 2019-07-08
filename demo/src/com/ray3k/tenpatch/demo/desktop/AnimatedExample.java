@@ -26,7 +26,6 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 public class AnimatedExample extends ApplicationAdapter {
     private Stage stage;
     private TextureAtlas textureAtlas;
-    private TenPatchDrawable animatedTenPatchDrawable;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -37,7 +36,7 @@ public class AnimatedExample extends ApplicationAdapter {
     public void create() {
         
         textureAtlas = new TextureAtlas(Gdx.files.internal("tenpatch.atlas"));
-        animatedTenPatchDrawable = new TenPatchDrawable();
+        TenPatchDrawable animatedTenPatchDrawable = new TenPatchDrawable();
         animatedTenPatchDrawable.horizontalStretchAreas = new int[] {26, 39, 144, 157};
         animatedTenPatchDrawable.verticalStretchAreas = new int[] {24, 27, 109, 111};
         animatedTenPatchDrawable.setRegions(new Array<TextureRegion>(textureAtlas.findRegions("eye-animation")));
@@ -61,9 +60,7 @@ public class AnimatedExample extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        float delta = Gdx.graphics.getDeltaTime();
-        animatedTenPatchDrawable.update(delta);
-        stage.act(delta);
+        stage.act();
         stage.draw();
     }
 
