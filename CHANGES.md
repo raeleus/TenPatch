@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 3.1.1 ###
+
+* Fixed negative offset speed resulting in tiling breaking bounds in the lower left.
+
 ### Version 3.1.0 ###
 
 * Switched to semantic versioning.

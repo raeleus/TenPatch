@@ -306,7 +306,9 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             drawToBatch(batch, texture, x + originX, y + originY, drawWidth, drawHeight, drawU, drawV, drawU2, drawV2);
         } else {
             int offsetXadjusted = (int) (offsetX % (texX2 - texX1));
+            if (offsetXadjusted < 0) offsetXadjusted = (int) ((texX2 - texX1) + offsetXadjusted);
             int offsetYadjusted = (int) (offsetY % (texY2 - texY1));
+            if (offsetYadjusted < 0) offsetYadjusted = (int) ((texY2 - texY1) + offsetYadjusted);
             
             int i, j;
             
