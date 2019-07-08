@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 4.1.0 ###
+
+* Added autoUpdate option to TenPatchDrawable. No longer unnecessary to call update() manually unless you want to specify a delta different from Gdx.graphics.getDeltaTime().
+
 ### Version 4.0.0 ###
 
 * Merged AnimatedTenPatchDrawable features into TenPatchDrawable and removed AnimatedTenPatchDrawable class.
