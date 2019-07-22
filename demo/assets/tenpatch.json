@@ -51,7 +51,13 @@
 		"rightWidth": 28,
 		"leftWidth": 28,
 		"bottomHeight": 28,
-		"topHeight": 28
+		"topHeight": 28,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"button-down-ten": {
 		"region": "button-down",
@@ -63,7 +69,13 @@
 		"rightWidth": 15,
 		"leftWidth": 17,
 		"bottomHeight": 3,
-		"topHeight": 4
+		"topHeight": 4,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"music-ten": {
 		"region": "music",
@@ -75,7 +87,13 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"progress-bar-bg-ten": {
 		"region": "progress-bar-bg",
@@ -87,7 +105,13 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"progress-bar-knob-ten": {
 		"region": "progress-bar-knob",
@@ -99,7 +123,13 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"scroll-knob-ten": {
 		"region": "scroll-knob",
@@ -111,7 +141,13 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"skull-ten": {
 		"region": "skull",
@@ -123,7 +159,13 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"split-pane-ten": {
 		"region": "split-pane",
@@ -135,7 +177,13 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"window-ten": {
 		"region": "window",
@@ -147,7 +195,13 @@
 		"rightWidth": 5,
 		"leftWidth": 5,
 		"bottomHeight": 4,
-		"topHeight": 17
+		"topHeight": 17,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"button-up-ten": {
 		"region": "button-up",
@@ -159,7 +213,13 @@
 		"rightWidth": 15,
 		"leftWidth": 17,
 		"bottomHeight": 4,
-		"topHeight": 3
+		"topHeight": 3,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"brick-wall-ten-tinted": {
 		"region": "brick-wall",
@@ -172,7 +232,13 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"sand-ten": {
 		"region": "sand",
@@ -184,21 +250,13 @@
 		"rightWidth": 60,
 		"leftWidth": 60,
 		"bottomHeight": 60,
-		"topHeight": 60
-	},
-	"eye-animation": {
-		"horizontalStretchAreas": [ 26, 39, 144, 157 ],
-		"verticalStretchAreas": [ 24, 27, 109, 111 ],
-		"tiling": false,
-		"leftWidth": 0,
-		"rightWidth": 0,
-		"topHeight": 0,
-		"bottomHeight": 0,
-		"minWidth": 0,
-		"minHeight": 0,
-		"name": "eye-animation",
-		"regions": ["eye-animation_0", "eye-animation_1", "eye-animation_2", "eye-animation_3", "eye-animation_4", "eye-animation_5", "eye-animation_6", "eye-animation_7", "eye-animation_8", "eye-animation_9", "eye-animation_10", "eye-animation_11", "eye-animation_12", "eye-animation_13", "eye-animation_14", "eye-animation_15", "eye-animation_16", "eye-animation_17", "eye-animation_18", "eye-animation_19", "eye-animation_20", "eye-animation_21", "eye-animation_22", "eye-animation_23", "eye-animation_24"],
-		"frameDuration": 0.066666667
+		"topHeight": 60,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
 	},
 	"white-ten": {
 		"region": "white",
@@ -210,7 +268,57 @@
 		"rightWidth": 0,
 		"leftWidth": 0,
 		"bottomHeight": 0,
-		"topHeight": 0
+		"topHeight": 0,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
+	},
+	"eye-animation": {
+		"region": "eye-animation_00",
+		"horizontalStretchAreas": [ 26, 38, 145, 157 ],
+		"verticalStretchAreas": [ 24, 27, 109, 111 ],
+		"tiling": false,
+		"minWidth": 184,
+		"minHeight": 137,
+		"rightWidth": 14,
+		"leftWidth": 15,
+		"bottomHeight": 15,
+		"topHeight": 14,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 0.05,
+		"regions": [
+			"eye-animation_00",
+			"eye-animation_01",
+			"eye-animation_02",
+			"eye-animation_03",
+			"eye-animation_04",
+			"eye-animation_05",
+			"eye-animation_06",
+			"eye-animation_07",
+			"eye-animation_08",
+			"eye-animation_09",
+			"eye-animation_10",
+			"eye-animation_11",
+			"eye-animation_12",
+			"eye-animation_13",
+			"eye-animation_14",
+			"eye-animation_15",
+			"eye-animation_16",
+			"eye-animation_17",
+			"eye-animation_18",
+			"eye-animation_19",
+			"eye-animation_20",
+			"eye-animation_21",
+			"eye-animation_22",
+			"eye-animation_23",
+			"eye-animation_24"
+		]
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
