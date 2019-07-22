@@ -124,7 +124,7 @@ public class Demo extends ApplicationAdapter {
         });
         
         tableRight.row();
-        textButton = new TextButton("Animated", skin);
+        textButton = new TextButton("Animation", skin);
         tableRight.add(textButton);
         textButton.addListener(new ChangeListener() {
             @Override
@@ -175,10 +175,25 @@ public class Demo extends ApplicationAdapter {
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 tableLeft.clear();
                 tableLeft.setBackground((Drawable) null);
-    
+            
                 TenPatchDrawable tenPatchDrawable = skin.get("sand-ten", TenPatchDrawable.class);
                 tenPatchDrawable.setOffsetSpeed(20);
                 Image image = new Image(tenPatchDrawable);
+                image.setScaling(Scaling.stretch);
+                tableLeft.add(image).grow();
+            }
+        });
+    
+        tableRight.row();
+        textButton = new TextButton("Scrolling Animation", skin);
+        tableRight.add(textButton);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                tableLeft.clear();
+                tableLeft.setBackground((Drawable) null);
+    
+                Image image = new Image(skin, "eye-animation-scrolling");
                 image.setScaling(Scaling.stretch);
                 tableLeft.add(image).grow();
             }
