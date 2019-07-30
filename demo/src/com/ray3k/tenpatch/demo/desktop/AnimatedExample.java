@@ -10,22 +10,23 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.ray3k.tenpatch.TenPatchDrawable;
 
+import java.util.Comparator;
+
 /**
- * This class demonstrates the use of an AnimatedTenPatchDrawable loaded from a
- * Texture atlas. Note that the drawable must be updated in order for the animation
- * to display properly.
+ * This class demonstrates the use of an animated TenPatchDrawable.
  * @author Raymond
  * @see SkinExample
  */
 public class AnimatedExample extends ApplicationAdapter {
     private Stage stage;
-    private TextureAtlas textureAtlas;
+    private Skin skin;
 
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -34,13 +35,8 @@ public class AnimatedExample extends ApplicationAdapter {
 
     @Override
     public void create() {
-        
-        textureAtlas = new TextureAtlas(Gdx.files.internal("tenpatch.atlas"));
-        TenPatchDrawable animatedTenPatchDrawable = new TenPatchDrawable();
-        animatedTenPatchDrawable.horizontalStretchAreas = new int[] {26, 39, 144, 157};
-        animatedTenPatchDrawable.verticalStretchAreas = new int[] {24, 27, 109, 111};
-        animatedTenPatchDrawable.setRegions(new Array<TextureRegion>(textureAtlas.findRegions("eye-animation")));
-        animatedTenPatchDrawable.setFrameDuration(1/15f);
+        skin = new Skin(Gdx.files.internal("tenpatch.json"));
+        TenPatchDrawable animatedTenPatchDrawable = skin.get("eye-animation", TenPatchDrawable.class);
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -74,6 +70,6 @@ public class AnimatedExample extends ApplicationAdapter {
     @Override
     public void dispose() {
         stage.dispose();
-        textureAtlas.dispose();
+        skin.dispose();
     }
 }

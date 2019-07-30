@@ -26,10 +26,10 @@ package com.ray3k.tenpatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
@@ -73,6 +73,12 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     private Array<TextureRegion> regions;
     private float frameDuration;
     private boolean autoUpdate = true;
+    public PlayMode playMode = PlayMode.LOOP;
+    public static enum PlayMode {
+        NORMAL, REVERSED, LOOP, LOOP_REVERSED, LOOP_PINGPONG, LOOP_RANDOM
+    }
+    public static RandomXS128 randomXS128 = new RandomXS128();
+    public volatile int seed = MathUtils.random(100);
     
     /**
      * No-argument constructor necessary for loading via JSON.
@@ -82,7 +88,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      * @see TenPatchDrawable#setVerticalStretchAreas(int[])
      */
     public TenPatchDrawable() {
-        
+    
     }
     
     /**
@@ -130,6 +136,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         regions = new Array<TextureRegion>(other.regions);
         frameDuration = other.frameDuration;
         autoUpdate = other.autoUpdate;
+        playMode = other.playMode;
+        seed = other.seed;
     }
 
     public static class InvalidPatchException extends RuntimeException {
@@ -762,7 +770,27 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
     
     public TextureRegion getKeyFrame(float time) {
-        return regions.get((int) (time / frameDuration) % regions.size);
+        switch (playMode) {
+            case REVERSED:
+                int index = (int) (time / frameDuration);
+                return regions.get(regions.size - 1 - (index < regions.size ? index : regions.size - 1));
+            case LOOP:
+                return regions.get((int) (time / frameDuration) % regions.size);
+            case LOOP_REVERSED:
+                return regions.get(regions.size - 1 - (int) (time / frameDuration) % regions.size);
+            case LOOP_PINGPONG:
+                index = (int) (time / frameDuration);
+                index = index % ((regions.size * 2) - 2);
+                if (index >= regions.size) index = regions.size - 2 - (index - regions.size);
+                return regions.get(index);
+            case LOOP_RANDOM:
+                index = (int) (time / frameDuration);
+                randomXS128.setSeed(seed + index);
+                return regions.get(randomXS128.nextInt(regions.size));
+            default:
+                index = (int) (time / frameDuration);
+                return regions.get(index < regions.size ? index : regions.size - 1);
+        }
     }
     
     public TextureRegion getKeyFrame() {
@@ -795,5 +823,13 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      */
     public void setAutoUpdate(boolean autoUpdate) {
         this.autoUpdate = autoUpdate;
+    }
+    
+    public PlayMode getPlayMode() {
+        return playMode;
+    }
+    
+    public void setPlayMode(PlayMode playMode) {
+        this.playMode = playMode;
     }
 }
