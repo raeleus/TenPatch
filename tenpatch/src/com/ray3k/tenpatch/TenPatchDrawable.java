@@ -158,7 +158,6 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      */
     @Override
     public void draw(Batch batch, float x, float y, float width, float height) {
-        System.out.println(this + " " + autoUpdate);
         if (autoUpdate) {
             update(Gdx.graphics.getDeltaTime(), true);
         }
