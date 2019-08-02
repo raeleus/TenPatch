@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.ray3k.tenpatch.TenPatchDrawable;
-import sun.font.CoreMetrics;
 
 public class GradientTest extends ApplicationAdapter {
     private Stage stage;
