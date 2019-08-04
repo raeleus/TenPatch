@@ -78,7 +78,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         NORMAL, REVERSED, LOOP, LOOP_REVERSED, LOOP_PINGPONG, LOOP_RANDOM
     }
     public static RandomXS128 randomXS128 = new RandomXS128();
-    public volatile int seed = MathUtils.random(100);
+    public transient int seed = MathUtils.random(100);
     
     /**
      * No-argument constructor necessary for loading via JSON.
