@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 4.2.1 ###
+
+* Fixed incorrect keyword allowing random number generator to be serialized.
+
 ### Version 4.2.0 ###
 
 * Added PlayMode option to control playback of animations.
