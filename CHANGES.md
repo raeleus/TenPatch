@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 5.0.0 ###
+
+* API CHANGE: playMode is now an int to be compatible with the SkinLoader
+
 ### Version 4.2.1 ###
 
 * Fixed incorrect keyword allowing random number generator to be serialized.

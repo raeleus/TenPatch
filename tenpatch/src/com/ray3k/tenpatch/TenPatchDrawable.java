@@ -73,9 +73,9 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     private Array<TextureRegion> regions;
     private float frameDuration;
     private boolean autoUpdate = true;
-    public PlayMode playMode = PlayMode.LOOP;
-    public static enum PlayMode {
-        NORMAL, REVERSED, LOOP, LOOP_REVERSED, LOOP_PINGPONG, LOOP_RANDOM
+    public int playMode = PlayMode.LOOP;
+    public static class PlayMode {
+        public static final int NORMAL = 0, REVERSED = 1, LOOP = 2, LOOP_REVERSED = 3, LOOP_PINGPONG = 4, LOOP_RANDOM = 5;
     }
     public static RandomXS128 randomXS128 = new RandomXS128();
     public transient int seed = MathUtils.random(100);
@@ -771,19 +771,19 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     
     public TextureRegion getKeyFrame(float time) {
         switch (playMode) {
-            case REVERSED:
+            case PlayMode.REVERSED:
                 int index = (int) (time / frameDuration);
                 return regions.get(regions.size - 1 - (index < regions.size ? index : regions.size - 1));
-            case LOOP:
+            case PlayMode.LOOP:
                 return regions.get((int) (time / frameDuration) % regions.size);
-            case LOOP_REVERSED:
+            case PlayMode.LOOP_REVERSED:
                 return regions.get(regions.size - 1 - (int) (time / frameDuration) % regions.size);
-            case LOOP_PINGPONG:
+            case PlayMode.LOOP_PINGPONG:
                 index = (int) (time / frameDuration);
                 index = index % ((regions.size * 2) - 2);
                 if (index >= regions.size) index = regions.size - 2 - (index - regions.size);
                 return regions.get(index);
-            case LOOP_RANDOM:
+            case PlayMode.LOOP_RANDOM:
                 index = (int) (time / frameDuration);
                 randomXS128.setSeed(seed + index);
                 return regions.get(randomXS128.nextInt(regions.size));
@@ -825,11 +825,11 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         this.autoUpdate = autoUpdate;
     }
     
-    public PlayMode getPlayMode() {
+    public int getPlayMode() {
         return playMode;
     }
     
-    public void setPlayMode(PlayMode playMode) {
+    public void setPlayMode(int playMode) {
         this.playMode = playMode;
     }
 }
