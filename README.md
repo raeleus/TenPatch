@@ -2,7 +2,7 @@
 
 ### TenPatch ###
 
-Version 5.0.0
+Version 5.0.1
 
 This project is an alternative to libGDX's 9patch implementation. It has the following features:
 

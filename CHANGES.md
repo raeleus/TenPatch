@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 5.0.1 ###
+
+* Fixed constructor not setting the min size of the drawable.
+
 ### Version 5.0.0 ###
 
 * API CHANGE: playMode is now an int to be compatible with the SkinLoader

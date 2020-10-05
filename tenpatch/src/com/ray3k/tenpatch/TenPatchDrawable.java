@@ -138,6 +138,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         autoUpdate = other.autoUpdate;
         playMode = other.playMode;
         seed = other.seed;
+        setMinWidth(other.getMinWidth());
+        setMinHeight(other.getMinHeight());
     }
 
     public static class InvalidPatchException extends RuntimeException {
