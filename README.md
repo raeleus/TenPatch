@@ -10,6 +10,8 @@ This project is an alternative to libGDX's 9patch implementation. It has the fol
 * An option for tiling stretch regions.
 * Tiling offsets to achieve the appearance of a moving background.
 * Tintable.
+* Gradients.
+* Animated images.
 * Can be shrunk to size 0 without the artificats as seen in libGDX's 9patch.
 * Loading via skin JSON.
 * An editor via [Skin Composer](https://github.com/raeleus/skin-composer).
