@@ -27,6 +27,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
@@ -74,6 +75,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     private float frameDuration;
     private boolean autoUpdate = true;
     public int playMode = PlayMode.LOOP;
+    public float scaleX = 1f, scaleY = 1f;
+
     public static class PlayMode {
         public static final int NORMAL = 0, REVERSED = 1, LOOP = 2, LOOP_REVERSED = 3, LOOP_PINGPONG = 4, LOOP_RANDOM = 5;
     }
@@ -118,7 +121,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         this.tiling = tiling;
         setRegion(region);
     }
-    
+
     public void set(TenPatchDrawable other) {
         color = other.color;
         color1 = other.color1;
@@ -138,8 +141,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         autoUpdate = other.autoUpdate;
         playMode = other.playMode;
         seed = other.seed;
-        setMinWidth(other.getMinWidth());
-        setMinHeight(other.getMinHeight());
+        scaleX = other.scaleX;
+        scaleY = other.scaleY;
     }
 
     public static class InvalidPatchException extends RuntimeException {
@@ -174,8 +177,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         //properties from the texture region
         TextureRegion region = getRegion();
         Texture texture = region.getTexture();
-        float w = region.getRegionWidth();
-        float h = region.getRegionHeight();
+        float w = region.getRegionWidth() * scaleX;
+        float h = region.getRegionHeight() * scaleY;
         float u = region.getU();
         float u2 = region.getU2();
         float v = region.getV2();
@@ -192,22 +195,25 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         //calculated values
         float extraWidth = MathUtils.floor(width) - w;
         float extraHeight = MathUtils.floor(height) - h;
-        float originX = 0;
-        float originY = 0;
-        float totalWidthStretch = 0f;
+        float originX = 0f;
+        float originY = 0f;
 
+        float totalWidthStretch = 0f;
         for (int i = 0; i < horizontalStretchAreas.length; i += 2) {
             totalWidthStretch += horizontalStretchAreas[i + 1] - horizontalStretchAreas[i] + 1;
         }
+        totalWidthStretch *= scaleX;
+
         float totalHeightStretch = 0f;
         for (int i = 0; i < verticalStretchAreas.length; i += 2) {
             totalHeightStretch += verticalStretchAreas[i + 1] - verticalStretchAreas[i] + 1;
         }
+        totalHeightStretch *= scaleY;
 
         int yIndex = 0;
-        float texY1 = 0;
+        float texY1 = 0f;
         while (yIndex <= verticalStretchAreas.length) {
-            float texY2 = yIndex < verticalStretchAreas.length ? verticalStretchAreas[yIndex] : h;
+            float texY2 = yIndex < verticalStretchAreas.length ? verticalStretchAreas[yIndex] * scaleY : h;
 
             originX = 0;
             int xIndex = 0;
@@ -217,7 +223,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             drawHeight = Math.max(drawHeight, 0);
             while (xIndex <= horizontalStretchAreas.length) {
                 //cell of horizontally non-stretching pixels
-                float texX2 = xIndex < horizontalStretchAreas.length ? horizontalStretchAreas[xIndex] : w;
+                float texX2 = xIndex < horizontalStretchAreas.length ? horizontalStretchAreas[xIndex] * scaleX : w;
 
                 drawWidth = width > w - totalWidthStretch ? texX2 - texX1 : (texX2 - texX1) * width / (w - totalWidthStretch);
                 drawWidth = Math.max(drawWidth, 0);
@@ -233,7 +239,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                 //cell of horizontally stretching pixels
                 if (xIndex < horizontalStretchAreas.length) {
                     texX1 = texX2;
-                    texX2 = xIndex < horizontalStretchAreas.length ? horizontalStretchAreas[xIndex] + 1 : w;
+                    texX2 = xIndex < horizontalStretchAreas.length ? (horizontalStretchAreas[xIndex] + 1) * scaleX : w;
 
                     drawWidth = texX2 - texX1 + extraWidth * (texX2 - texX1) / totalWidthStretch;
                     drawWidth = Math.max(drawWidth, 0);
@@ -259,7 +265,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
 
             if (yIndex < verticalStretchAreas.length) {
                 texY1 = texY2;
-                texY2 = yIndex < verticalStretchAreas.length ? verticalStretchAreas[yIndex] + 1 : h;
+                texY2 = yIndex < verticalStretchAreas.length ? (verticalStretchAreas[yIndex] + 1) * scaleY : h;
                 xIndex = 0;
                 texX1 = 0;
                 originX = 0;
@@ -267,7 +273,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                 drawHeight = texY2 - texY1 + extraHeight * (texY2 - texY1) / totalHeightStretch;
                 drawHeight = Math.max(drawHeight, 0);
                 while (xIndex <= horizontalStretchAreas.length) {
-                    float texX2 = xIndex < horizontalStretchAreas.length ? horizontalStretchAreas[xIndex] : w;
+                    float texX2 = xIndex < horizontalStretchAreas.length ? horizontalStretchAreas[xIndex] * scaleX : w;
 
                     //cell of horizontally non-stretching pixels
                     drawWidth = width > w - totalWidthStretch ? texX2 - texX1 : (texX2 - texX1) * width / (w - totalWidthStretch);
@@ -290,7 +296,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                     //cell of horizontally stretching cells
                     if (xIndex < horizontalStretchAreas.length) {
                         texX1 = texX2;
-                        texX2 = xIndex < horizontalStretchAreas.length ? horizontalStretchAreas[xIndex] + 1 : w;
+                        texX2 = xIndex < horizontalStretchAreas.length ? (horizontalStretchAreas[xIndex] + 1) * scaleX : w;
 
                         drawWidth = texX2 - texX1 + extraWidth * (texX2 - texX1) / totalWidthStretch;
                         drawWidth = Math.max(drawWidth, 0);
@@ -833,5 +839,49 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     
     public void setPlayMode(int playMode) {
         this.playMode = playMode;
+    }
+
+    /**
+     * Multiplies the X and Y scaling by the specified amount.
+     *
+     * @param scaleX scaling in X
+     * @param scaleY scaling in Y
+     * @see NinePatch#scale(float, float)
+     */
+    public void scale(float scaleX, float scaleY) {
+        scaleX *= scaleX;
+        scaleY *= scaleY;
+    }
+
+    /**
+     * Returns the x scaling of this TenPatch. The scaling of a TenPatch affects
+     * the scaling of it's regions without affecting the size of the drawable.
+     * Higher scaling means the region will be rendered bigger as in you were
+     * to zoom in. This allows using TenPatch with viewports where world size
+     * do not match pixel size.
+     *
+     * @return x scaling of this TenPatch
+     */
+    public float getScaleX()
+    {
+        return scaleX;
+    }
+
+    public void setScaleX(float scaleX)
+    {
+        this.scaleX = scaleX;
+    }
+
+    /**
+     * @return y scaling of this TenPatch
+     */
+    public float getScaleY()
+    {
+        return scaleY;
+    }
+
+    public void setScaleY(float scaleY)
+    {
+        this.scaleY = scaleY;
     }
 }
