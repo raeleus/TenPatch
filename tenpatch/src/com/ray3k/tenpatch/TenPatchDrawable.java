@@ -849,8 +849,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
      * @see NinePatch#scale(float, float)
      */
     public void scale(float scaleX, float scaleY) {
-        scaleX *= scaleX;
-        scaleY *= scaleY;
+        this.scaleX *= scaleX;
+        this.scaleY *= scaleY;
     }
 
     /**
