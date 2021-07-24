@@ -28,7 +28,6 @@ public class GradientTest extends ApplicationAdapter {
         skin = new Skin(Gdx.files.internal("tenpatch.json"));
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        skin.get("sand-ten", TenPatchDrawable.class).setOffsetSpeed(20);
     
         Table root = new Table();
         root.setFillParent(true);
@@ -55,7 +54,6 @@ public class GradientTest extends ApplicationAdapter {
         
         float delta = Gdx.graphics.getDeltaTime();
         
-        skin.get("sand-ten", TenPatchDrawable.class).update(delta);
         stage.act(delta);
         stage.draw();
     }
