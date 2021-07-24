@@ -2,7 +2,7 @@
 
 ### TenPatch ###
 
-Version 5.0.1
+Version 5.1.0
 
 This project is an alternative to libGDX's 9patch implementation. It has the following features:
 
@@ -39,7 +39,7 @@ project(":core") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus.TenPatch:tenpatch:5.0.0'
+        compile 'com.github.raeleus.TenPatch:tenpatch:5.1.0'
     }
 }
 ```
@@ -54,7 +54,7 @@ project(":html") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus.TenPatch:tenpatch:5.0.0:sources'
+        compile 'com.github.raeleus.TenPatch:tenpatch:5.1.0:sources'
     }
 }
 ```

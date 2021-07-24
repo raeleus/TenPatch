@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 5.1.0 ###
+
+* Added scaling functionality like NinePatch
+
 ### Version 5.0.1 ###
 
 * Fixed constructor not setting the min size of the drawable.
