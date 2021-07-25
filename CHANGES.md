@@ -3,6 +3,7 @@
 ### Version 5.1.1 ###
 
 * Fixed not setting min size with #set() method.
+* Added helper methods to set the scale.
 
 ### Version 5.1.0 ###
 

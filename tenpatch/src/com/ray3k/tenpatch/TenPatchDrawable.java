@@ -886,4 +886,14 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     {
         this.scaleY = scaleY;
     }
+    
+    public void setScale(float scaleX, float scaleY) {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
+    
+    public void setScale(float scale) {
+        this.scaleX = scale;
+        this.scaleY = scale;
+    }
 }
