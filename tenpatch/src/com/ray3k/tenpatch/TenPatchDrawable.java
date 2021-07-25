@@ -267,7 +267,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
 
             if (yIndex < verticalStretchAreas.length) {
                 texY1 = texY2;
-                texY2 = yIndex < verticalStretchAreas.length ? (verticalStretchAreas[yIndex] + 1) * scaleY : h;
+                texY2 = (verticalStretchAreas[yIndex] + 1) * scaleY;
                 xIndex = 0;
                 texX1 = 0;
                 originX = 0;
@@ -298,7 +298,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                     //cell of horizontally stretching cells
                     if (xIndex < horizontalStretchAreas.length) {
                         texX1 = texX2;
-                        texX2 = xIndex < horizontalStretchAreas.length ? (horizontalStretchAreas[xIndex] + 1) * scaleX : w;
+                        texX2 = (horizontalStretchAreas[xIndex] + 1) * scaleX;
 
                         drawWidth = texX2 - texX1 + extraWidth * (texX2 - texX1) / totalWidthStretch;
                         drawWidth = Math.max(drawWidth, 0);
@@ -873,7 +873,6 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     {
         this.scaleX = scaleX;
     }
-
     
     /**
      * Returns the y scaling of this TenPatch. The scaling of a TenPatch affects
