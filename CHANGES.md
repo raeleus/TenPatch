@@ -1,5 +1,9 @@
 # CHANGES #
 
+### Version 5.1.1 ###
+
+* Fixed not setting min size with #set() method.
+
 ### Version 5.1.0 ###
 
 * Added scaling functionality like NinePatch

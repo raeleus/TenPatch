@@ -141,6 +141,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         autoUpdate = other.autoUpdate;
         playMode = other.playMode;
         seed = other.seed;
+        setMinWidth(other.getMinWidth());
+        setMinHeight(other.getMinHeight());
         scaleX = other.scaleX;
         scaleY = other.scaleY;
     }
