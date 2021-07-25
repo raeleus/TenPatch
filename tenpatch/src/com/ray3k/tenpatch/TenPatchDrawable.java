@@ -858,9 +858,9 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     /**
      * Returns the x scaling of this TenPatch. The scaling of a TenPatch affects
      * the scaling of it's regions without affecting the size of the drawable.
-     * Higher scaling means the region will be rendered bigger as in you were
+     * Higher scaling means the region will be rendered bigger as if you were
      * to zoom in. This allows using TenPatch with viewports where world size
-     * do not match pixel size.
+     * does not match pixel size.
      *
      * @return x scaling of this TenPatch
      */
@@ -874,7 +874,14 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         this.scaleX = scaleX;
     }
 
+    
     /**
+     * Returns the y scaling of this TenPatch. The scaling of a TenPatch affects
+     * the scaling of it's regions without affecting the size of the drawable.
+     * Higher scaling means the region will be rendered bigger as if you were
+     * to zoom in. This allows using TenPatch with viewports where world size
+     * does not match pixel size.
+     *
      * @return y scaling of this TenPatch
      */
     public float getScaleY()
