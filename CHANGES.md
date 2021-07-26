@@ -1,9 +1,10 @@
 # CHANGES #
 
-### Version 5.1.1 ###
+### Version 5.2.0 ###
 
 * Fixed not setting min size with #set() method.
 * Added helper methods to set the scale.
+* Added crushMode functionality to better define behavior when shrunken below the minimum size. 
 
 ### Version 5.1.0 ###
 
