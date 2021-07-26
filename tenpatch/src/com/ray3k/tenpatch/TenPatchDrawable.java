@@ -77,9 +77,30 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public int playMode = PlayMode.LOOP;
     public float scaleX = 1f, scaleY = 1f;
     public int crushMode = CrushMode.SHRINK;
-
+    
+    /**
+     * The strategies used when the drawable is forced to scale below the minimum size.
+     */
     public static class CrushMode {
-        public static final int SHRINK = 0, CROP = 1, NONE = 2;
+        /**
+         * When the drawable is forced to scale below the minimum
+         * size, it will shrink everything to accommodate the new
+         * bounds.
+         */
+        public static final int SHRINK = 0;
+        
+        /**
+         * When the drawable is forced to scale below the minimum
+         * size, it will not shrink. Anything drawn beyond the
+         * bounds will be cropped on the right and top.
+         */
+        public static final int CROP = 1;
+        
+        /**
+         * When the drawable is forced to scale below the minimum
+         * size, it will overflow it's bounds.
+         */
+        public static final int NONE = 2;
     }
     
     public static class PlayMode {
