@@ -227,6 +227,25 @@
 		"frameDuration": 1,
 		"regions": []
 	},
+	"button-checked-ten": {
+		"region": "button-up",
+		"color": "red",
+		"horizontalStretchAreas": [ 17, 79 ],
+		"verticalStretchAreas": [ 0, 32 ],
+		"tiling": false,
+		"minWidth": 95,
+		"minHeight": 33,
+		"rightWidth": 15,
+		"leftWidth": 17,
+		"bottomHeight": 4,
+		"topHeight": 3,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 1,
+		"regions": []
+	},
 	"brick-wall-ten-tinted": {
 		"region": "brick-wall",
 		"color": "red",
@@ -572,6 +591,12 @@
 		"font": "font",
 		"up": "button-up-ten",
 		"down": "button-down-ten"
+	},
+	"toggle": {
+		"font": "font",
+		"up": "button-up-ten",
+		"down": "button-down-ten",
+		"checked": "button-checked-ten"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
