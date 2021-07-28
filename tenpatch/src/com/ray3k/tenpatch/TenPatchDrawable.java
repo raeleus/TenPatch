@@ -95,12 +95,19 @@ public class TenPatchDrawable extends TextureRegionDrawable {
          * bounds will be cropped on the right and top.
          */
         public static final int CROP = 1;
+    
+        /**
+         * When the drawable is forced to scale below the minimum
+         * size, it will not shrink. Anything drawn beyond the
+         * bound will be cropped on the left and bottom.
+         */
+        public static final int CROP_REVERSED = 2;
         
         /**
          * When the drawable is forced to scale below the minimum
          * size, it will overflow it's bounds.
          */
-        public static final int NONE = 2;
+        public static final int NONE = 3;
     }
     
     public static class PlayMode {
@@ -232,7 +239,8 @@ public class TenPatchDrawable extends TextureRegionDrawable {
             totalWidthStretch += horizontalStretchAreas[i + 1] - horizontalStretchAreas[i] + 1;
         }
         totalWidthStretch *= scaleX;
-
+    
+        //totalHeightStretch is the sum of all the vertical stretchable areas defined
         float totalHeightStretch = 0f;
         for (int i = 0; i < verticalStretchAreas.length; i += 2) {
             totalHeightStretch += verticalStretchAreas[i + 1] - verticalStretchAreas[i] + 1;
@@ -258,6 +266,15 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                     drawHeight = Math.min(texY2 - texY1, height - cropAccumulatorY);
                     cropAccumulatorY += drawHeight;
                 }
+            }  else if (crushMode == CrushMode.CROP_REVERSED) {
+                if (height > h - totalHeightStretch) {
+                    drawHeight = texY2 - texY1;
+                } else {
+                    float heightToMakeUp = h - totalHeightStretch - height - cropAccumulatorY;
+                    drawHeight = texY2 - texY1 - heightToMakeUp;
+                    drawHeight = MathUtils.clamp(drawHeight, 0, texY2 - texY1);
+                    cropAccumulatorY += MathUtils.clamp(heightToMakeUp, 0, texY2 - texY1);
+                }
             } else {
                 drawHeight = (texY2 - texY1) * height / (h - totalHeightStretch);
             }
@@ -276,6 +293,15 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                         drawWidth = Math.min(texX2 - texX1, width - cropAccumulatorX);
                         cropAccumulatorX += drawWidth;
                     }
+                }  else if (crushMode == CrushMode.CROP_REVERSED) {
+                    if (width > w - totalWidthStretch) {
+                        drawWidth = texX2 - texX1;
+                    } else {
+                        float widthToMakeUp = w - totalWidthStretch - width - cropAccumulatorX;
+                        drawWidth = texX2 - texX1 - widthToMakeUp;
+                        drawWidth = MathUtils.clamp(drawWidth, 0, texX2 - texX1);
+                        cropAccumulatorX += MathUtils.clamp(widthToMakeUp, 0, texX2 - texX1);
+                    }
                 } else {
                     drawWidth = (texX2 - texX1) * width / (w - totalWidthStretch);
                 }
@@ -285,6 +311,11 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                     drawV = v + (v2 - v) * texY1 / h;
                     drawU2 = u + (u2 - u) * Math.min(texX1 + drawWidth, texX2) / w;
                     drawV2 = v + (v2 - v) * Math.min(texY1 + drawHeight, texY2) / h;
+                } else if (crushMode == CrushMode.CROP_REVERSED) {
+                    drawU = u + (u2 - u) * Math.max(texX2 - drawWidth, texX1) / w;
+                    drawV = v + (v2 - v) * Math.max(texY2 - drawHeight, texY1) / h;
+                    drawU2 = u + (u2 - u) * texX2 / w;
+                    drawV2 = v + (v2 - v) * texY2 / h;
                 } else {
                     drawU = u + (u2 - u) * texX1 / w;
                     drawV = v + (v2 - v) * texY1 / h;
@@ -304,9 +335,14 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                     drawWidth = texX2 - texX1 + extraWidth * (texX2 - texX1) / totalWidthStretch;
                     drawWidth = Math.max(drawWidth, 0);
                     drawU = u + (u2 - u) * texX1 / w;
-                    drawV = v + (v2 - v) * texY1 / h;
                     drawU2 = u + (u2 - u) * texX2 / w;
-                    drawV2 = v + (v2 - v) * Math.min(texY1 + drawHeight, texY2) / h;
+                    if (crushMode == CrushMode.CROP_REVERSED) {
+                        drawV = v + (v2 - v) * Math.max(texY1, texY2 - drawHeight) / h;
+                        drawV2 = v + (v2 - v) * texY2 / h;
+                    } else {
+                        drawV = v + (v2 - v) * texY1 / h;
+                        drawV2 = v + (v2 - v) * Math.min(texY1 + drawHeight, texY2) / h;
+                    }
                     
                     if (texture.getMagFilter() == Texture.TextureFilter.Linear || texture.getMinFilter() == Texture.TextureFilter.Linear) {
                         drawU += .5f /texture.getWidth();
@@ -346,6 +382,15 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                             drawWidth = Math.min(texX2 - texX1, width - cropAccumulatorX);
                             cropAccumulatorX += drawWidth;
                         }
+                    }  else if (crushMode == CrushMode.CROP_REVERSED) {
+                        if (width > w - totalWidthStretch) {
+                            drawWidth = texX2 - texX1;
+                        } else {
+                            float widthToMakeUp = w - totalWidthStretch - width - cropAccumulatorX;
+                            drawWidth = texX2 - texX1 - widthToMakeUp;
+                            drawWidth = MathUtils.clamp(drawWidth, 0, texX2 - texX1);
+                            cropAccumulatorX += MathUtils.clamp(widthToMakeUp, 0, texX2 - texX1);
+                        }
                     } else {
                         drawWidth = (texX2 - texX1) * width / (w - totalWidthStretch);
                     }
@@ -354,6 +399,11 @@ public class TenPatchDrawable extends TextureRegionDrawable {
                         drawU = u + (u2 - u) * texX1 / w;
                         drawV = v + (v2 - v) * texY1 / h;
                         drawU2 = u + (u2 - u) * Math.min(texX1 + drawWidth, texX2) / w;
+                        drawV2 = v + (v2 - v) * texY2 / h;
+                    } else if (crushMode == CrushMode.CROP_REVERSED) {
+                        drawU = u + (u2 - u) * Math.max(texX2 - drawWidth, texX1) / w;
+                        drawV = v + (v2 - v) * texY1 / h;
+                        drawU2 = u + (u2 - u) * texX2 / w;
                         drawV2 = v + (v2 - v) * texY2 / h;
                     } else {
                         drawU = u + (u2 - u) * texX1 / w;

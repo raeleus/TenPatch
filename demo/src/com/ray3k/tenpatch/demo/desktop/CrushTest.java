@@ -97,6 +97,18 @@ public class CrushTest extends ApplicationAdapter {
             }
         });
     
+        textButton = new TextButton("Crop Reversed", skin, "toggle");
+        table.add(textButton);
+        buttonGroup.add(textButton);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                for (TenPatchDrawable drawable : tenPatchDrawables) {
+                    drawable.crushMode = CrushMode.CROP_REVERSED;
+                }
+            }
+        });
+    
         textButton = new TextButton("None", skin, "toggle");
         table.add(textButton);
         buttonGroup.add(textButton);
