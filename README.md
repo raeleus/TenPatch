@@ -39,7 +39,7 @@ project(":core") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus.TenPatch:tenpatch:5.1.0'
+        compile 'com.github.raeleus.TenPatch:tenpatch:5.2.0'
     }
 }
 ```
@@ -54,7 +54,7 @@ project(":html") {
 
     dependencies {
         ...
-        compile 'com.github.raeleus.TenPatch:tenpatch:5.1.0:sources'
+        compile 'com.github.raeleus.TenPatch:tenpatch:5.2.0:sources'
     }
 }
 ```
