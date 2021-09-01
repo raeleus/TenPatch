@@ -970,7 +970,15 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     public void setPlayMode(int playMode) {
         this.playMode = playMode;
     }
-
+    
+    public int getCrushMode() {
+        return crushMode;
+    }
+    
+    public void setCrushMode(int crushMode) {
+        this.crushMode = crushMode;
+    }
+    
     /**
      * Multiplies the X and Y scaling by the specified amount.
      *

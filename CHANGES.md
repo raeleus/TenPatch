@@ -3,6 +3,7 @@
 ### Version 5.2.2 ###
 
 * Fixed not setting the region when setting values to an existing TenPatchDrawable
+* Added missing getters/setters for crushMode
 
 ### Version 5.2.1 ###
 
