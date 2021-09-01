@@ -721,7 +721,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
     
     /**
-     * Sets the x-offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * Sets the x-offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tiling=true
      * @see TenPatchDrawable#setTiling(boolean)
      * @param offsetX
      */
@@ -734,7 +734,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
     
     /**
-     * Sets the y-offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * Sets the y-offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tiling=true
      * @see TenPatchDrawable#setTiling(boolean)
      * @param offsetY
      */
@@ -743,7 +743,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
     
     /**
-     * Sets the offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * Sets the offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tiling=true
      * @see TenPatchDrawable#setTiling(boolean)
      * @param offsetX
      * @param offsetY
@@ -754,7 +754,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
     
     /**
-     * Sets the offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tilable=true
+     * Sets the offset of tiles in the stretchable areas. Only applicable if the TenPatchDrawable is set to tiling=true
      * @see TenPatchDrawable#setTiling(boolean)
      * @param offset
      */
