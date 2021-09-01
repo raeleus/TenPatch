@@ -161,15 +161,15 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         color2 = other.color2;
         color3 = other.color3;
         color4 = other.color4;
-        horizontalStretchAreas = Arrays.copyOf(other.horizontalStretchAreas, other.horizontalStretchAreas.length);
-        verticalStretchAreas = Arrays.copyOf(other.verticalStretchAreas, other.verticalStretchAreas.length);
+        horizontalStretchAreas = other.horizontalStretchAreas == null ? null : Arrays.copyOf(other.horizontalStretchAreas, other.horizontalStretchAreas.length);
+        verticalStretchAreas = other.verticalStretchAreas == null ? null : Arrays.copyOf(other.verticalStretchAreas, other.verticalStretchAreas.length);
         tiling = other.tiling;
         offsetX = other.offsetX;
         offsetY = other.offsetY;
         offsetXspeed = other.offsetXspeed;
         offsetYspeed = other.offsetYspeed;
         time = other.time;
-        regions = new Array<TextureRegion>(other.regions);
+        regions = regions == null ? null : new Array<TextureRegion>(other.regions);
         frameDuration = other.frameDuration;
         autoUpdate = other.autoUpdate;
         playMode = other.playMode;

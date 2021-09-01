@@ -2,6 +2,8 @@
 
 ### Version 5.2.1 ###
 
+* Fixed null pointer exception when setting values to an existing TenPatchDrawable with null fields.
+
 ### Version 5.2.0 ###
 
 * Fixed not setting min size with #set() method.
