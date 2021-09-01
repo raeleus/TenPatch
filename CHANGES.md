@@ -2,6 +2,8 @@
 
 ### Version 5.2.2 ###
 
+* Fixed not setting the region when setting values to an existing TenPatchDrawable
+
 ### Version 5.2.1 ###
 
 * Fixed null pointer exception when setting values to an existing TenPatchDrawable with null fields.

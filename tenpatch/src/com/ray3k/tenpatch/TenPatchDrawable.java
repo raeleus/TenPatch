@@ -179,6 +179,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
         scaleX = other.scaleX;
         scaleY = other.scaleY;
         crushMode = other.crushMode;
+        setRegion(other.getRegion());
     }
 
     public static class InvalidPatchException extends RuntimeException {
