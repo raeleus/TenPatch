@@ -1,5 +1,7 @@
 # CHANGES #
 
+### Version 5.2.2 ###
+
 ### Version 5.2.1 ###
 
 * Fixed null pointer exception when setting values to an existing TenPatchDrawable with null fields.
