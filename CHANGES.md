@@ -1,5 +1,7 @@
 # CHANGES #
 
+### Version 5.2.1 ###
+
 ### Version 5.2.0 ###
 
 * Fixed not setting min size with #set() method.
