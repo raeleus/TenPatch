@@ -156,7 +156,7 @@ public class TenPatchDrawable extends TextureRegionDrawable {
     }
 
     public void set(TenPatchDrawable other) {
-        color = other.color;
+        color.set(other.color);
         color1 = other.color1;
         color2 = other.color2;
         color3 = other.color3;

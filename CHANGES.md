@@ -2,6 +2,8 @@
 
 ### Version 5.2.3 ###
 
+* Fixed set() method not using color.set().
+
 ### Version 5.2.2 ###
 
 * Fixed not setting the region when setting values to an existing TenPatchDrawable
