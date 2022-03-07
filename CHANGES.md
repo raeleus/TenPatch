@@ -1,5 +1,7 @@
 # CHANGES #
 
+### Version 5.2.3 ###
+
 ### Version 5.2.2 ###
 
 * Fixed not setting the region when setting values to an existing TenPatchDrawable
